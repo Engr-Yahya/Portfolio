@@ -1,7 +1,7 @@
 import { motion, useAnimation } from "framer-motion";
 import { FaLinkedin, FaGithub, FaInstagram, FaFacebook, FaDiscord, FaDownload, FaEnvelope } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import cvFile from "../My-cv/draft-cv-1.pdf"; 
+import cvFile from "./My-cv/draft-cv-1.pdf"; 
 
 export default function Hero() {
   const controls = useAnimation();
