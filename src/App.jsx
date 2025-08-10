@@ -5,9 +5,9 @@ import About from "./sections/About";
 import Experience from "./sections/Experience";
 import DarkModeToggle from "./components/DarkModeToggle";
 import { useEffect } from "react";
-import Hero from "./Sections/Hero";
 import Projects from "./sections/Projects";
 import Contact from "./sections/Contact";
+import Hero from "./Hero";
 
 function App() {
   // optional: show user at top on route load or keep for accessibility
@@ -29,13 +29,13 @@ function App() {
       <Navbar />
 
       <main className="pt-20">
+        
         <Hero />
         <About />
         <Experience />
         <Projects />
         <Contact />
-        
-        {/* Projects section will go here later */}
+      
         
         {/* Simple Footer */}
         <footer className="py-8 mt-12 bg-transparent">
