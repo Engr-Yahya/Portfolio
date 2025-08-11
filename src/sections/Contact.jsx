@@ -34,23 +34,23 @@ export default function Contact() {
     const newErrors = {};
     
     if (!formData.name.trim()) {
-      newErrors.name = 'Name zaruri hai';
+      newErrors.name = 'Name is important';
     }
     
     if (!formData.email.trim()) {
-      newErrors.email = 'Email zaruri hai';
+      newErrors.email = 'Email is important';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Valid email enter kariye';
+      newErrors.email = 'Please enter a valid email address';
     }
     
     if (!formData.subject.trim()) {
-      newErrors.subject = 'Subject zaruri hai';
+      newErrors.subject = 'Subject is important';
     }
     
     if (!formData.message.trim()) {
-      newErrors.message = 'Message zaruri hai';
+      newErrors.message = 'Message is important';
     } else if (formData.message.trim().length < 10) {
-      newErrors.message = 'Message kam se kam 10 characters ka hona chahiye';
+      newErrors.message = 'The message must be at least 10 characters long';
     }
     
     setErrors(newErrors);
@@ -118,7 +118,7 @@ export default function Contact() {
     } catch (error) {
       setFormStatus({
         type: 'error',
-        message: 'Maaf kariye, message send karne mein koi masla hua hai. Kripya dobara try kariye ya direct email kariye.'
+        message: 'Sorry, there was an issue sending the message. Please try again or send an email directly..'
       });
       
       // Clear error message after 8 seconds
