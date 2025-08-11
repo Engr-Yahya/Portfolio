@@ -93,7 +93,7 @@ export default function Contact() {
     if (!validateForm()) {
       setFormStatus({
         type: 'error',
-        message: 'Kripya sab fields ko sahi tarah se fill kariye'
+        message: 'Please fill in all the fields correctly.'
       });
       return;
     }
