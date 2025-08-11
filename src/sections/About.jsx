@@ -210,7 +210,7 @@ export default function About() {
                   <p>
                     A passionate <strong className="text-blue-600 dark:text-blue-400">Front-End Developer</strong> with 
                     a love for creating beautiful, functional, and user-friendly web experiences. 
-                    Currently pursuing my Bachelor's in Software Engineering at Hazara University.
+                    Completed my Bachelor's degree in Software Engineering from Hazara University.
                   </p>
                   <p>
                     My journey in web development started with curiosity and has grown into a 
@@ -219,7 +219,7 @@ export default function About() {
                   </p>
                   <p>
                     When I'm not coding, you'll find me exploring new technologies, contributing to 
-                    open-source projects, or learning about UI/UX design principles to create 
+                    open-source projects, or learning about tech stuff to create 
                     better user experiences.
                   </p>
                 </div>
