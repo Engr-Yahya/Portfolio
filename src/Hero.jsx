@@ -20,13 +20,13 @@ export default function Hero() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Typing animation for the name
+  // Typing animation for the name - FASTER ANIMATION
   const nameVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.03, // Reduced from 0.1 to 0.03 for faster animation
       }
     }
   };
@@ -38,8 +38,8 @@ export default function Hero() {
       y: 0,
       transition: {
         type: "spring",
-        damping: 12,
-        stiffness: 200
+        damping: 15, // Increased damping for snappier animation
+        stiffness: 300 // Increased stiffness for faster spring
       }
     }
   };
@@ -126,11 +126,11 @@ export default function Hero() {
           <span className="inline-block px-4 py-2 bg-blue-100 dark:bg-blue-900/30 
                          text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium
                          border border-blue-200 dark:border-blue-700">
-            👋 Welcome to my portfolio
+             Welcome to my portfolio 
           </span>
         </motion.div>
 
-        {/* Name with typing effect - Fixed line height */}
+        {/* Name with typing effect - FASTER ANIMATION */}
         <motion.div
           variants={nameVariants}
           initial="hidden"
@@ -179,7 +179,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
+          transition={{ delay: 0.3, duration: 0.6, type: "spring" }} // Reduced delay from 0.5 to 0.3
           className="mb-6"
         >
           <h2 className="text-xl md:text-2xl font-semibold text-gray-700 dark:text-gray-300">
@@ -192,7 +192,7 @@ export default function Hero() {
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.8, duration: 1 }}
+          transition={{ delay: 0.5, duration: 0.8 }} // Reduced delay from 0.8 to 0.5
           className="max-w-3xl text-lg md:text-xl text-gray-600 dark:text-gray-300 text-center mb-8 leading-relaxed"
         >
           A detail-oriented Front-End Developer passionate about creating 
@@ -216,11 +216,11 @@ export default function Hero() {
           </motion.span> web interfaces.
         </motion.p>
 
-        {/* Enhanced Buttons - Fixed hover delays */}
+        {/* Enhanced Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
+          transition={{ delay: 0.7, duration: 0.6 }} // Reduced delay from 1.2 to 0.7
           className="flex gap-4 flex-wrap justify-center mb-10"
         >
           <motion.a
@@ -274,11 +274,11 @@ export default function Hero() {
           </motion.a>
         </motion.div>
 
-        {/* Enhanced Social Links - Fixed hover delays */}
+        {/* Enhanced Social Links */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.4, duration: 0.8 }}
+          transition={{ delay: 0.9, duration: 0.6 }} // Reduced delay from 1.4 to 0.9
           className="flex gap-4 justify-center items-center mt-10 flex-wrap"
         >
           {socialIcons.map((social, index) => (

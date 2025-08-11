@@ -11,7 +11,8 @@ import {
   FaDiscord,
   FaPaperPlane,
   FaCheckCircle,
-  FaExclamationCircle
+  FaExclamationCircle,
+  FaTimes
 } from "react-icons/fa";
 
 export default function Contact() {
@@ -27,30 +28,108 @@ export default function Contact() {
   
   const [formStatus, setFormStatus] = useState({ type: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const validateForm = () => {
+    const newErrors = {};
+    
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name zaruri hai';
+    }
+    
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email zaruri hai';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Valid email enter kariye';
+    }
+    
+    if (!formData.subject.trim()) {
+      newErrors.subject = 'Subject zaruri hai';
+    }
+    
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message zaruri hai';
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = 'Message kam se kam 10 characters ka hona chahiye';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleInputChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
+    });
+    
+    // Clear error for this field when user starts typing
+    if (errors[name]) {
+      setErrors({
+        ...errors,
+        [name]: ''
+      });
+    }
+  };
+
+  const sendEmail = async (formData) => {
+    // Simulate email sending with random success/failure
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        // 85% success rate for demo
+        if (Math.random() > 0.15) {
+          resolve({ success: true });
+        } else {
+          reject({ error: 'Network error' });
+        }
+      }, 2000);
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
+    if (!validateForm()) {
+      setFormStatus({
+        type: 'error',
+        message: 'Kripya sab fields ko sahi tarah se fill kariye'
+      });
+      return;
+    }
+    
+    setIsSubmitting(true);
+    setFormStatus({ type: '', message: '' });
+    
+    try {
+      await sendEmail(formData);
+      
       setFormStatus({
         type: 'success',
-        message: 'Message sent successfully! I\'ll get back to you soon.'
+        message: 'Your message is sent successfully! wait for my response.'
       });
-      setIsSubmitting(false);
-      setFormData({ name: '', email: '', subject: '', message: '' });
       
-      // Clear success message after 5 seconds
-      setTimeout(() => setFormStatus({ type: '', message: '' }), 5000);
-    }, 2000);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      setErrors({});
+      
+      // Clear success message after 8 seconds
+      setTimeout(() => setFormStatus({ type: '', message: '' }), 8000);
+      
+    } catch (error) {
+      setFormStatus({
+        type: 'error',
+        message: 'Maaf kariye, message send karne mein koi masla hua hai. Kripya dobara try kariye ya direct email kariye.'
+      });
+      
+      // Clear error message after 8 seconds
+      setTimeout(() => setFormStatus({ type: '', message: '' }), 8000);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const clearFormStatus = () => {
+    setFormStatus({ type: '', message: '' });
   };
 
   const contactInfo = [
@@ -128,6 +207,34 @@ export default function Contact() {
       transition: {
         duration: 0.6,
         ease: "easeOut"
+      }
+    }
+  };
+
+  const successAnimation = {
+    initial: { scale: 0, opacity: 0, rotate: -180 },
+    animate: { 
+      scale: 1, 
+      opacity: 1, 
+      rotate: 0,
+      transition: {
+        type: "spring",
+        stiffness: 200,
+        damping: 10
+      }
+    }
+  };
+
+  const errorAnimation = {
+    initial: { scale: 0, opacity: 0, x: -20 },
+    animate: { 
+      scale: 1, 
+      opacity: 1, 
+      x: 0,
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 20
       }
     }
   };
@@ -255,34 +362,51 @@ export default function Contact() {
               </p>
             </div>
 
-            {/* Form Status */}
+            {/* Form Status with Enhanced Animations */}
             {formStatus.message && (
               <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={`mb-6 p-4 rounded-xl flex items-center gap-3 ${
+                initial={formStatus.type === 'success' ? successAnimation.initial : errorAnimation.initial}
+                animate={formStatus.type === 'success' ? successAnimation.animate : errorAnimation.animate}
+                exit={{ opacity: 0, scale: 0.8 }}
+                className={`mb-6 p-4 rounded-xl flex items-center gap-3 relative ${
                   formStatus.type === 'success' 
-                    ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300' 
-                    : 'bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300'
+                    ? 'bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900 dark:to-emerald-900 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-700' 
+                    : 'bg-gradient-to-r from-red-100 to-pink-100 dark:from-red-900 dark:to-pink-900 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-700'
                 }`}
               >
-                {formStatus.type === 'success' ? (
-                  <FaCheckCircle className="text-lg" />
-                ) : (
-                  <FaExclamationCircle className="text-lg" />
-                )}
-                <span className="font-medium">{formStatus.message}</span>
+                <motion.div
+                  initial={{ rotate: -180, scale: 0 }}
+                  animate={{ rotate: 0, scale: 1 }}
+                  transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                >
+                  {formStatus.type === 'success' ? (
+                    <FaCheckCircle className="text-xl" />
+                  ) : (
+                    <FaExclamationCircle className="text-xl" />
+                  )}
+                </motion.div>
+                
+                <span className="font-medium flex-1">{formStatus.message}</span>
+                
+                <motion.button
+                  onClick={clearFormStatus}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="p-1 rounded-full hover:bg-white/20 transition-colors"
+                >
+                  <FaTimes className="text-sm" />
+                </motion.button>
               </motion.div>
             )}
 
-            <form className="space-y-6">
+            <div className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label
                     htmlFor="name"
                     className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
                   >
-                    Full Name
+                    Full Name :
                   </label>
                   <input
                     type="text"
@@ -290,13 +414,24 @@ export default function Contact() {
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 
-                             rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                    className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent
                              bg-white dark:bg-gray-700 text-gray-900 dark:text-white
-                             placeholder-gray-500 dark:placeholder-gray-400 transition-all duration-200"
+                             placeholder-gray-500 dark:placeholder-gray-400 transition-all duration-200 ${
+                               errors.name 
+                                 ? 'border-red-500 dark:border-red-400' 
+                                 : 'border-gray-300 dark:border-gray-600'
+                             }`}
                     placeholder="Enter your full name"
                   />
+                  {errors.name && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-red-500 text-sm mt-1"
+                    >
+                      {errors.name}
+                    </motion.p>
+                  )}
                 </div>
 
                 <div>
@@ -304,7 +439,7 @@ export default function Contact() {
                     htmlFor="email"
                     className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
                   >
-                    Email Address
+                    Email Address :
                   </label>
                   <input
                     type="email"
@@ -312,13 +447,24 @@ export default function Contact() {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 
-                             rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                    className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent
                              bg-white dark:bg-gray-700 text-gray-900 dark:text-white
-                             placeholder-gray-500 dark:placeholder-gray-400 transition-all duration-200"
+                             placeholder-gray-500 dark:placeholder-gray-400 transition-all duration-200 ${
+                               errors.email 
+                                 ? 'border-red-500 dark:border-red-400' 
+                                 : 'border-gray-300 dark:border-gray-600'
+                             }`}
                     placeholder="john@example.com"
                   />
+                  {errors.email && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-red-500 text-sm mt-1"
+                    >
+                      {errors.email}
+                    </motion.p>
+                  )}
                 </div>
               </div>
 
@@ -327,7 +473,7 @@ export default function Contact() {
                   htmlFor="subject"
                   className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
                 >
-                  Subject
+                  Subject :
                 </label>
                 <input
                   type="text"
@@ -335,13 +481,24 @@ export default function Contact() {
                   name="subject"
                   value={formData.subject}
                   onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 
-                           rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                  className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent
                            bg-white dark:bg-gray-700 text-gray-900 dark:text-white
-                           placeholder-gray-500 dark:placeholder-gray-400 transition-all duration-200"
+                           placeholder-gray-500 dark:placeholder-gray-400 transition-all duration-200 ${
+                             errors.subject 
+                               ? 'border-red-500 dark:border-red-400' 
+                               : 'border-gray-300 dark:border-gray-600'
+                           }`}
                   placeholder="Project Discussion / Collaboration Opportunity"
                 />
+                {errors.subject && (
+                  <motion.p
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-red-500 text-sm mt-1"
+                  >
+                    {errors.subject}
+                  </motion.p>
+                )}
               </div>
 
               <div>
@@ -349,29 +506,41 @@ export default function Contact() {
                   htmlFor="message"
                   className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
                 >
-                  Message
+                  Message :
                 </label>
                 <textarea
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleInputChange}
-                  required
                   rows={5}
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 
-                           rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                  className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent
                            bg-white dark:bg-gray-700 text-gray-900 dark:text-white
                            placeholder-gray-500 dark:placeholder-gray-400 resize-none 
-                           transition-all duration-200"
+                           transition-all duration-200 ${
+                             errors.message 
+                               ? 'border-red-500 dark:border-red-400' 
+                               : 'border-gray-300 dark:border-gray-600'
+                           }`}
                   placeholder="Hi Yahya, I'd love to discuss a project with you. Here are the details..."
                 />
+                {errors.message && (
+                  <motion.p
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-red-500 text-sm mt-1"
+                  >
+                    {errors.message}
+                  </motion.p>
+                )}
               </div>
 
               <motion.button
-                type="submit"
+                type="button"
+                onClick={handleSubmit}
                 disabled={isSubmitting}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={!isSubmitting ? { scale: 1.02 } : {}}
+                whileTap={!isSubmitting ? { scale: 0.98 } : {}}
                 className="w-full flex items-center justify-center gap-3 px-6 py-4 
                          bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl 
                          hover:from-blue-700 hover:to-purple-700 focus:ring-2 focus:ring-blue-500 
@@ -380,8 +549,12 @@ export default function Contact() {
               >
                 {isSubmitting ? (
                   <>
-                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    <span>Sending...</span>
+                    <motion.div 
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
+                    />
+                    <span>Message sending...</span>
                   </>
                 ) : (
                   <>
@@ -390,7 +563,7 @@ export default function Contact() {
                   </>
                 )}
               </motion.button>
-            </form>
+            </div>
           </motion.div>
         </motion.div>
 

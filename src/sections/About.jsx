@@ -135,7 +135,7 @@ export default function About() {
           ))}
         </motion.div>
 
-        {/* Tab Navigation */}
+        {/* Tab Navigation - FIXED STYLING */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -153,16 +153,26 @@ export default function About() {
                   transition: { duration: 0.2 }
                 }}
                 whileTap={{ scale: 0.98 }}
-                animate={activeTab === tab.id ? { 
-                  scale: 1.05, 
-                  y: -2,
-                } : {}}
                 className={`relative flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
                   activeTab === tab.id
                     ? "text-white shadow-lg transform scale-105 -translate-y-1"
                     : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                 }`}
               >
+                {/* Background for active tab - ALWAYS PRESENT */}
+                {activeTab === tab.id && (
+                  <motion.div
+                    layoutId="activeTabBg"
+                    className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl
+                             shadow-lg shadow-blue-500/25"
+                    style={{ zIndex: -1 }}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
+                  />
+                )}
+                
                 <motion.div
                   animate={activeTab === tab.id ? { rotate: 360 } : { rotate: 0 }}
                   transition={{ duration: 0.5 }}
@@ -170,15 +180,6 @@ export default function About() {
                   <tab.icon size={18} />
                 </motion.div>
                 <span>{tab.label}</span>
-                {activeTab === tab.id && (
-                  <motion.div
-                    layoutId="activeTabBg"
-                    className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl
-                             shadow-lg shadow-blue-500/25"
-                    style={{ zIndex: -1 }}
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
-                  />
-                )}
               </motion.button>
             ))}
           </div>

@@ -10,7 +10,7 @@ export default function Experience() {
 
   const experiences = [
     {
-      title: "Web Developer (Intern)",
+      title: "Web Developer",
       company: "Saqib Hanif",
       location: "Mansehra, Pakistan",
       from: "01/05/2025",
@@ -46,7 +46,7 @@ export default function Experience() {
 
   const education = [
     {
-      title: "BSc in Software Engineering",
+      title: "BS in Software Engineering",
       school: "Hazara University Mansehra",
       location: "Mansehra, Pakistan",
       from: "08/10/2021",
