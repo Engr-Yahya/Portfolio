@@ -3,7 +3,8 @@ import { motion, useInView } from "framer-motion";
 import { FaExternalLinkAlt, FaGithub, FaRocket, FaCode, FaStar, FaEye } from "react-icons/fa";
 import { SiReact, SiTailwindcss, SiFramer, SiVite } from "react-icons/si";
 import projectImg from "../assets/novax-job-portal.png";
-import portfolio from "../assets/portfolio-website.png";
+import comingsoon from "../assets/comingsoon.png";
+import medhub from "../assets/medhub.png";
 
 export default function Projects() {
   const ref = useRef(null);
@@ -26,22 +27,22 @@ export default function Projects() {
       features: ["Responsive Design", "Job Management", "User Profiles", "Modern UI/UX"]
     },
     {
-      title: "Healthcare Management System",
-      desc: "MedHub - A comprehensive healthcare solution designed as thesis project. Features patient management, appointment scheduling, and medical record keeping.",
-      img: "https://via.placeholder.com/400x250/3B82F6/FFFFFF?text=MedHub",
+      title: "MedHub",
+      desc: "Healthcare Management System - A comprehensive healthcare solution designed as thesis project. Features patient management, appointment scheduling, and medical record keeping.",
+      img: medhub,
       tech: [
         { name: "React", icon: SiReact, color: "#61DAFB" },
         { name: "TailwindCSS", icon: SiTailwindcss, color: "#06B6D4" }
       ],
-      live: "#",
-      github: "#",
-      status: "development",
+      live: "https://1drv.ms/f/c/9A4C5EC985827BCA/Et1wODbZyV9Et_sdW92Wh7EBEw3QYnyV7QaiBlf9fAJTLg?e=5s3LzD",
+      github: "https://github.com/Engr-Yahya/MedHub-FYP",
+      status: "completed",
       features: ["Patient Management", "Appointment System", "Medical Records", "Dashboard Analytics"]
     },
     {
-      title: "portfolio-website",
-      desc: "A modern, responsive portfolio website showcasing my skills, projects, and experience. Built with React and enhanced with smooth animations.",
-      img: portfolio,
+      title: 'E-commerce Store',
+      desc: "Project is in process...",
+      img: comingsoon,
       tech: [
         { name: "React", icon: SiReact, color: "#61DAFB" },
         { name: "TailwindCSS", icon: SiTailwindcss, color: "#06B6D4" },
@@ -49,7 +50,7 @@ export default function Projects() {
       ],
       live: "#",
       github: "#",
-      status: "current",
+      status: "Coming Soon",
       features: ["Responsive Design", "Dark Mode", "Smooth Animations", "Contact Form"]
     }
   ];
