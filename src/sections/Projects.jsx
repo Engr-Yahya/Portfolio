@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { FaExternalLinkAlt, FaGithub, FaRocket, FaCode, FaStar, FaEye } from "react-icons/fa";
-import { SiReact, SiTailwindcss, SiFramer, SiVite } from "react-icons/si";
+import { FaExternalLinkAlt, FaGithub, FaRocket, FaCode, FaStar, FaEye, } from "react-icons/fa";
+import { SiReact, SiTailwindcss, SiFramer, SiVite, } from "react-icons/si";
 import projectImg from "../assets/novax-job-portal.png";
-import comingsoon from "../assets/comingsoon.png";
+import ecommerce from "../assets/ecommerce.png";
 import medhub from "../assets/medhub.png";
 
 export default function Projects() {
@@ -23,7 +23,7 @@ export default function Projects() {
       ],
       live: "https://engr-yahya.github.io/novaX-Job-Portal/",
       github: "https://github.com/Engr-Yahya/novaX-Job-Portal",
-      status: "completed",
+      status: "development",
       features: ["Responsive Design", "Job Management", "User Profiles", "Modern UI/UX"]
     },
     {
@@ -41,16 +41,17 @@ export default function Projects() {
     },
     {
       title: 'E-commerce Store',
-      desc: "Project is in process...",
-      img: comingsoon,
+      desc: "A modern e-commerce web application currently under development. Built with React (Vite) and styled using TailwindCSS, the project features Lucide icons, smooth animations with Framer Motion, and a fully responsive design. The goal is to deliver a seamless shopping experience with dark mode support and interactive UI components.",
+      img: ecommerce,
       tech: [
         { name: "React", icon: SiReact, color: "#61DAFB" },
+        { name: "Vite", icon: SiVite, color: "#646CFF" },
         { name: "TailwindCSS", icon: SiTailwindcss, color: "#06B6D4" },
         { name: "Framer Motion", icon: SiFramer, color: "#FF0055" }
       ],
       live: "#",
-      github: "#",
-      status: "Coming Soon",
+      github: "https://github.com/Engr-Yahya/Ecommerce",
+      status: "current",
       features: ["Responsive Design", "Dark Mode", "Smooth Animations", "Contact Form"]
     }
   ];
@@ -118,7 +119,7 @@ export default function Projects() {
                dark:from-gray-900 dark:to-blue-900/10 transition-colors duration-300"
     >
       <div className="max-w-7xl mx-auto">
-        
+
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: -50 }}
@@ -144,7 +145,7 @@ export default function Projects() {
         >
           {projects.map((project, index) => {
             const statusConfig = getStatusConfig(project.status);
-            
+
             return (
               <motion.div
                 key={index}
@@ -161,7 +162,7 @@ export default function Projects() {
                     alt={project.title}
                     className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
                   />
-                  
+
                   {/* Status Badge */}
                   <div className="absolute top-4 right-4">
                     <div className={`flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium ${statusConfig.color}`}>
@@ -266,7 +267,7 @@ export default function Projects() {
                       <FaExternalLinkAlt size={14} />
                       Live Demo
                     </motion.a>
-                    
+
                     <motion.a
                       href={project.github}
                       target="_blank"
