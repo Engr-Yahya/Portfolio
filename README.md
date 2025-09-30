@@ -6,7 +6,7 @@
 
 ## 🚀 **Live Demo**
 
-**[View Live Portfolio →](https://www.Portfolio-one-theta-47.vercel.app)**
+**[View Live Portfolio →](https://Portfolio-one-theta-47.vercel.app)**
 
 ---
 
@@ -292,7 +292,7 @@ Contributions are welcome! Here's how you can help:
 - **💼 LinkedIn**: [muhammad-yahya-se25](https://www.linkedin.com/in/muhammad-yahya-se25)
 - **🐱 GitHub**: [Engr-Yahya](https://github.com/Engr-Yahya)
 - **📱 Instagram**: [@yahya_butt.0](https://instagram.com/yahya_butt.0)
-- **🌐 Portfolio**: [Live Website](https://www.Portfolio-one-theta-47.vercel.app)
+- **🌐 Portfolio**: [Live Website](https://Portfolio-one-theta-47.vercel.app)
 
 ---
 
