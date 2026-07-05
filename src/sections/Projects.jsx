@@ -1,10 +1,19 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { FaExternalLinkAlt, FaGithub, FaRocket, FaCode, FaStar, FaEye, } from "react-icons/fa";
-import { SiReact, SiTailwindcss, SiFramer, SiVite, } from "react-icons/si";
+import { FaExternalLinkAlt, FaGithub, FaRocket, FaCode, FaStar, FaCheckCircle } from "react-icons/fa";
+import { SiReact, SiTailwindcss, SiFramer, SiVite } from "react-icons/si";
 import projectImg from "../assets/novax-job-portal.png";
 import ecommerce from "../assets/ecommerce.png";
 import medhub from "../assets/medhub.png";
+
+// -----------------------------------------------------------------------------
+// Same token system as Navbar / Hero / About:
+//   bg base #0A0F0D · glass rgba(255,255,255,.03) · border rgba(255,255,255,.1)
+//   accent lime #CDFB4E · text primary #F3F4EF · text muted #8B9691
+// Each project image sits inside a tinted "frame" (emerald / sky / amber) so
+// the cards keep some of the reference's varied color panels without
+// clashing with the single lime brand accent.
+// -----------------------------------------------------------------------------
 
 export default function Projects() {
   const ref = useRef(null);
@@ -12,305 +21,210 @@ export default function Projects() {
 
   const projects = [
     {
+      eyebrow: "JOB PORTAL · 2025",
       title: "NovaX Job Portal",
-      desc: "A responsive and modern job marketplace built with cutting-edge technologies. Features include employer registration, job posting, profile management, and an intuitive user interface.",
+      desc: "A responsive job marketplace where employers register, post roles, and manage their company profile from a dashboard. Built for speed and a mobile-friendly feel from the ground up.",
       img: projectImg,
+      frame: "from-[#13291f] to-[#0d1310]",
       tech: [
-        { name: "React", icon: SiReact, color: "#61DAFB" },
-        { name: "Vite", icon: SiVite, color: "#646CFF" },
-        { name: "TailwindCSS", icon: SiTailwindcss, color: "#06B6D4" },
-        { name: "Framer Motion", icon: SiFramer, color: "#FF0055" }
+        { name: "React", icon: SiReact, color: "#CDFB4E" },
+        { name: "Vite", icon: SiVite, color: "#7DD3FC" },
+        { name: "TailwindCSS", icon: SiTailwindcss, color: "#CDFB4E" },
+        { name: "Framer Motion", icon: SiFramer, color: "#F5B94D" },
       ],
       live: "https://engr-yahya.github.io/novaX-Job-Portal/",
       github: "https://github.com/Engr-Yahya/novaX-Job-Portal",
       status: "development",
-      features: ["Responsive Design", "Job Management", "User Profiles", "Modern UI/UX"]
+      features: ["Employer dashboards", "Job posting flow", "Mobile-friendly UI", "Custom routing on GitHub Pages"],
     },
     {
+      eyebrow: "THESIS PROJECT · 2025",
       title: "MedHub",
-      desc: "Healthcare Management System - A comprehensive healthcare solution designed as thesis project. Features patient management, appointment scheduling, and medical record keeping.",
+      desc: "A cross-platform mobile app that digitizes patient–doctor interactions. Patients book appointments and view prescription history; doctors manage availability and digital records.",
       img: medhub,
+      frame: "from-[#0f2230] to-[#0d1310]",
       tech: [
-        { name: "React", icon: SiReact, color: "#61DAFB" },
-        { name: "TailwindCSS", icon: SiTailwindcss, color: "#06B6D4" }
+        { name: "React", icon: SiReact, color: "#CDFB4E" },
+        { name: "TailwindCSS", icon: SiTailwindcss, color: "#7DD3FC" },
       ],
       live: "https://1drv.ms/f/c/9A4C5EC985827BCA/Et1wODbZyV9Et_sdW92Wh7EBEw3QYnyV7QaiBlf9fAJTLg?e=5s3LzD",
       github: "https://github.com/Engr-Yahya/MedHub-FYP",
       status: "completed",
-      features: ["Patient Management", "Appointment System", "Medical Records", "Dashboard Analytics"]
+      features: ["Appointment booking", "Prescription history", "Doctor referrals", "Role-based access"],
     },
     {
-      title: 'E-commerce Store',
-      desc: "A modern e-commerce web application currently under development. Built with React (Vite) and styled using TailwindCSS, the project features Lucide icons, smooth animations with Framer Motion, and a fully responsive design. The goal is to deliver a seamless shopping experience with dark mode support and interactive UI components.",
+      eyebrow: "E-COMMERCE · ONGOING",
+      title: "E-commerce Store",
+      desc: "A modern storefront in active development — React and Vite underneath, TailwindCSS for styling, Framer Motion for the small moments, and dark mode built in from day one.",
       img: ecommerce,
+      frame: "from-[#2a2313] to-[#0d1310]",
       tech: [
-        { name: "React", icon: SiReact, color: "#61DAFB" },
-        { name: "Vite", icon: SiVite, color: "#646CFF" },
-        { name: "TailwindCSS", icon: SiTailwindcss, color: "#06B6D4" },
-        { name: "Framer Motion", icon: SiFramer, color: "#FF0055" }
+        { name: "React", icon: SiReact, color: "#CDFB4E" },
+        { name: "Vite", icon: SiVite, color: "#7DD3FC" },
+        { name: "TailwindCSS", icon: SiTailwindcss, color: "#CDFB4E" },
+        { name: "Framer Motion", icon: SiFramer, color: "#F5B94D" },
       ],
       live: "#",
       github: "https://github.com/Engr-Yahya/Ecommerce",
       status: "current",
-      features: ["Responsive Design", "Dark Mode", "Smooth Animations", "Contact Form"]
-    }
+      features: ["Dark mode support", "Smooth animations", "Responsive layout", "Contact form"],
+    },
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
-  };
-
-  const getStatusConfig = (status) => {
-    switch (status) {
-      case "completed":
-        return {
-          color: "bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300",
-          dot: "bg-green-500",
-          icon: FaStar,
-          text: "Completed"
-        };
-      case "development":
-        return {
-          color: "bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-300",
-          dot: "bg-orange-500",
-          icon: FaCode,
-          text: "In Development"
-        };
-      case "current":
-        return {
-          color: "bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300",
-          dot: "bg-blue-500",
-          icon: FaRocket,
-          text: "Current"
-        };
-      default:
-        return {
-          color: "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300",
-          dot: "bg-gray-500",
-          icon: FaEye,
-          text: "Coming Soon"
-        };
-    }
+  const statusConfig = {
+    completed: { color: "#CDFB4E", icon: FaStar, text: "Completed" },
+    development: { color: "#F5B94D", icon: FaCode, text: "In Development" },
+    current: { color: "#7DD3FC", icon: FaRocket, text: "Current" },
   };
 
   return (
     <section
       id="projects"
       ref={ref}
-      className="py-20 px-6 bg-gradient-to-br from-white to-blue-50/30 
-               dark:from-gray-900 dark:to-blue-900/10 transition-colors duration-300"
+      className="relative py-24 px-6 bg-[#0A0F0D] overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[#CDFB4E]/5 blur-[130px]" />
+      </div>
 
+      <div className="relative z-10 max-w-5xl mx-auto">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: -50 }}
+          initial={{ opacity: 0, y: -30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            My <span className="text-blue-600 dark:text-blue-400">Projects</span>
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Showcasing my latest work and creative solutions built with modern technologies
+          <p className="text-[11px] uppercase tracking-[0.3em] text-[#CDFB4E] mb-3">
+            Curated Work
           </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full mt-4" />
+          <h2 className="font-['Fraunces',serif] text-4xl md:text-5xl font-semibold text-[#F3F4EF] mb-4">
+            Featured Projects
+          </h2>
+          <p className="text-[#8B9691] max-w-xl mx-auto">
+            A handful of builds that show how I think about interfaces, from job
+            portals to healthcare apps.
+          </p>
         </motion.div>
 
-        {/* Projects Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8"
-        >
+        {/* Project Cards */}
+        <div className="space-y-8">
           {projects.map((project, index) => {
-            const statusConfig = getStatusConfig(project.status);
+            const status = statusConfig[project.status];
+            const imageOnRight = index % 2 === 0;
 
             return (
               <motion.div
-                key={index}
-                variants={cardVariants}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="group bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-xl 
-                         border border-gray-200 dark:border-gray-700 hover:shadow-2xl 
-                         transition-all duration-300 flex flex-col"
+                key={project.title}
+                initial={{ opacity: 0, y: 40 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.7, delay: index * 0.12 }}
+                className="rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/20 transition-colors duration-300 overflow-hidden"
               >
-                {/* Image Container */}
-                <div className="relative overflow-hidden">
-                  <img
-                    src={project.img}
-                    alt={project.title}
-                    className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-
-                  {/* Status Badge */}
-                  <div className="absolute top-4 right-4">
-                    <div className={`flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium ${statusConfig.color}`}>
-                      <statusConfig.icon size={12} />
-                      {statusConfig.text}
+                <div
+                  className={`grid md:grid-cols-2 gap-0 items-center ${
+                    imageOnRight ? "" : "md:[&>*:first-child]:order-2"
+                  }`}
+                >
+                  {/* Text side */}
+                  <div className="p-8 md:p-10">
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="text-[11px] uppercase tracking-[0.2em] text-[#8B9691]">
+                        {project.eyebrow}
+                      </span>
+                      <span
+                        className="flex items-center gap-1.5 text-[11px] font-medium px-2.5 py-1 rounded-full"
+                        style={{ backgroundColor: `${status.color}1A`, color: status.color }}
+                      >
+                        <status.icon size={10} />
+                        {status.text}
+                      </span>
                     </div>
-                  </div>
 
-                  {/* Overlay on Hover */}
-                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 
-                                transition-opacity duration-300 flex items-center justify-center">
-                    <div className="flex gap-3">
-                      <motion.a
+                    <h3 className="font-['Fraunces',serif] text-2xl md:text-3xl font-semibold text-[#F3F4EF] mb-3">
+                      {project.title}
+                    </h3>
+
+                    <p className="text-[#8B9691] leading-relaxed mb-5">
+                      {project.desc}
+                    </p>
+
+                    <ul className="space-y-2 mb-6">
+                      {project.features.map((feature) => (
+                        <li key={feature} className="flex items-center gap-2 text-sm text-[#B9C2BC]">
+                          <FaCheckCircle className="text-[#CDFB4E] flex-shrink-0" size={13} />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div className="flex flex-wrap gap-2 mb-7">
+                      {project.tech.map((tech) => (
+                        <span
+                          key={tech.name}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-[#B9C2BC]"
+                        >
+                          <tech.icon style={{ color: tech.color }} size={12} />
+                          {tech.name}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="flex gap-3 flex-wrap">
+                      <a
                         href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="p-3 bg-white rounded-full text-gray-900 hover:bg-blue-600 
-                                 hover:text-white transition-colors duration-200"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#CDFB4E] text-[#0A0F0D] text-sm font-semibold hover:brightness-95 transition"
                       >
-                        <FaExternalLinkAlt size={16} />
-                      </motion.a>
-                      <motion.a
+                        <FaExternalLinkAlt size={12} />
+                        Live Demo
+                      </a>
+                      <a
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="p-3 bg-white rounded-full text-gray-900 hover:bg-gray-800 
-                                 hover:text-white transition-colors duration-200"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/15 text-[#F3F4EF] text-sm font-semibold bg-white/5 hover:border-[#CDFB4E]/40 transition-colors"
                       >
-                        <FaGithub size={16} />
-                      </motion.a>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-6 flex flex-col flex-grow">
-                  {/* Title */}
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 
-                               group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                    {project.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4 flex-grow">
-                    {project.desc}
-                  </p>
-
-                  {/* Features */}
-                  <div className="mb-4">
-                    <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">
-                      Key Features:
-                    </h4>
-                    <div className="grid grid-cols-2 gap-1 text-xs text-gray-600 dark:text-gray-400">
-                      {project.features.map((feature, featureIndex) => (
-                        <div key={featureIndex} className="flex items-center gap-1">
-                          <div className="w-1 h-1 bg-blue-500 rounded-full" />
-                          {feature}
-                        </div>
-                      ))}
+                        <FaGithub size={12} />
+                        Code
+                      </a>
                     </div>
                   </div>
 
-                  {/* Tech Stack */}
-                  <div className="mb-6">
-                    <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
-                      Technologies:
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tech.map((tech, techIndex) => (
-                        <motion.div
-                          key={techIndex}
-                          whileHover={{ scale: 1.05, y: -2 }}
-                          className="flex items-center gap-2 px-3 py-1 bg-gray-100 dark:bg-gray-700 
-                                   rounded-full text-xs font-medium hover:shadow-md transition-all duration-200
-                                   text-gray-700 dark:text-gray-200"
-                          style={{ borderLeft: `3px solid ${tech.color}` }}
-                        >
-                          <tech.icon style={{ color: tech.color }} size={14} />
-                          <span>{tech.name}</span>
-                        </motion.div>
-                      ))}
+                  {/* Image side */}
+                  <div className={`bg-gradient-to-br ${project.frame} p-8 md:p-10 h-full flex items-center justify-center`}>
+                    <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl w-full">
+                      <img
+                        src={project.img}
+                        alt={project.title}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="flex gap-3 mt-auto">
-                    <motion.a
-                      href={project.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="flex-1 flex items-center justify-center gap-2 px-4 py-3 
-                               bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl 
-                               hover:from-blue-700 hover:to-purple-700 transition-all duration-300 
-                               text-sm font-medium shadow-lg hover:shadow-xl"
-                    >
-                      <FaExternalLinkAlt size={14} />
-                      Live Demo
-                    </motion.a>
-
-                    <motion.a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="flex-1 flex items-center justify-center gap-2 px-4 py-3 
-                               border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 
-                               rounded-xl hover:border-gray-800 dark:hover:border-gray-400 
-                               hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300 
-                               text-sm font-medium"
-                    >
-                      <FaGithub size={14} />
-                      Code
-                    </motion.a>
                   </div>
                 </div>
               </motion.div>
             );
           })}
-        </motion.div>
+        </div>
 
         {/* Call to Action */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          transition={{ duration: 0.7, delay: 0.5 }}
           className="text-center mt-16"
         >
-          <p className="text-gray-600 dark:text-gray-300 mb-6">
-            Want to see more of my work or collaborate on a project?
+          <p className="text-[#8B9691] mb-6">
+            Want to see more of my work or talk through a project?
           </p>
-          <motion.a
+          <a
             href="#contact"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 
-                     text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 
-                     font-medium shadow-lg hover:shadow-xl"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#CDFB4E] text-[#0A0F0D] font-semibold text-sm hover:brightness-95 transition"
           >
-            <FaRocket />
-            Let's Work Together
-          </motion.a>
+            <FaRocket size={13} />
+            Let's work together
+          </a>
         </motion.div>
       </div>
     </section>

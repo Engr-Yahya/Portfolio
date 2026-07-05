@@ -1,320 +1,243 @@
-import { motion, useAnimation } from "framer-motion";
-import { FaLinkedin, FaGithub, FaInstagram, FaFacebook, FaDiscord, FaDownload, FaEnvelope } from "react-icons/fa";
-import { useEffect, useState } from "react";
-import cvFile from "./My-cv/My-Resume.pdf"; 
+import { motion } from "framer-motion";
+import {
+  FaLinkedin,
+  FaGithub,
+  FaInstagram,
+  FaFacebook,
+  FaDiscord,
+  FaDownload,
+  FaArrowRight,
+  FaReact,
+  FaGitAlt,
+} from "react-icons/fa";
+import { SiJavascript, SiTailwindcss, SiFirebase } from "react-icons/si";
+import cvFile from "./My-cv/My-Resume.pdf";
+
+// -----------------------------------------------------------------------------
+// Same token system as Navbar.jsx — bg #0A0F0D, accent #CDFB4E, text #F3F4EF /
+// #8B9691. Display headline uses a serif face (Fraunces / Playfair Display);
+// add it via Google Fonts in index.html, e.g.:
+//   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+// then reference it below as font-['Fraunces'] (already wired in, swap the
+// family name if you pick a different serif).
+// -----------------------------------------------------------------------------
+
+function Sparkle({ className, delay = 0, size = 18 }) {
+  return (
+    <motion.svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      className={className}
+      initial={{ opacity: 0.15, scale: 0.7, rotate: 0 }}
+      animate={{ opacity: [0.15, 0.9, 0.15], scale: [0.7, 1.1, 0.7], rotate: [0, 15, 0] }}
+      transition={{ duration: 4, repeat: Infinity, delay, ease: "easeInOut" }}
+    >
+      <path
+        d="M12 0L13.9 9.1L23 11L13.9 12.9L12 22L10.1 12.9L1 11L10.1 9.1L12 0Z"
+        fill="#CDFB4E"
+      />
+    </motion.svg>
+  );
+}
+
+const socialIcons = [
+  { icon: FaLinkedin, href: "https://www.linkedin.com/in/muhammad-yahya-se25", color: "#0077B5", label: "LinkedIn" },
+  { icon: FaGithub, href: "https://github.com/Engr-Yahya", color: "#E9EDE9", label: "GitHub" },
+  { icon: FaInstagram, href: "https://instagram.com/yahya_butt.0", color: "#E4405F", label: "Instagram" },
+  { icon: FaFacebook, href: "https://www.facebook.com/share/1A4ZuGougu/", color: "#1877F2", label: "Facebook" },
+  { icon: FaDiscord, href: "https://discord.gg/yahyashafiq.", color: "#5865F2", label: "Discord" },
+];
+
+const techStack = [
+  { icon: FaReact, label: "React" },
+  { icon: SiJavascript, label: "JavaScript" },
+  { icon: SiTailwindcss, label: "Tailwind CSS" },
+  { icon: SiFirebase, label: "Firebase" },
+  { icon: FaGitAlt, label: "Git" },
+  { icon: FaGithub, label: "GitHub" },
+];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: 0.15 * i, duration: 0.6, ease: "easeOut" },
+  }),
+};
 
 export default function Hero() {
-  const controls = useAnimation();
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  // Mouse tracking for interactive effects
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({
-        x: (e.clientX - window.innerWidth / 2) / 50,
-        y: (e.clientY - window.innerHeight / 2) / 50
-      });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  // Typing animation for the name - FASTER ANIMATION
-  const nameVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.03, // Reduced from 0.1 to 0.03 for faster animation
-      }
-    }
-  };
-
-  const letterVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        damping: 15, // Increased damping for snappier animation
-        stiffness: 300 // Increased stiffness for faster spring
-      }
-    }
-  };
-
-  const socialIcons = [
-    {
-      icon: FaLinkedin,
-      href: "https://www.linkedin.com/in/muhammad-yahya-se25",
-      color: "#0077B5",
-      label: "LinkedIn"
-    },
-    {
-      icon: FaGithub,
-      href: "https://github.com/Engr-Yahya",
-      color: "#333",
-      label: "GitHub"
-    },
-    {
-      icon: FaInstagram,
-      href: "https://instagram.com/yahya_butt.0",
-      color: "#E4405F",
-      label: "Instagram"
-    },
-    {
-      icon: FaFacebook,
-      href: "https://www.facebook.com/share/1A4ZuGougu/",
-      color: "#1877F2",
-      label: "Facebook"
-    },
-    {
-      icon: FaDiscord,
-      href: "https://discord.gg/yahyashafiq.",
-      color: "#5865F2",
-      label: "Discord"
-    }
-  ];
-
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col items-center justify-center px-6 py-20 overflow-hidden
-      bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 
-      dark:from-gray-900 dark:via-blue-900/20 dark:to-purple-900/20 transition-colors duration-300"
+      className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-32 pb-20 overflow-hidden bg-[#0A0F0D]"
     >
-      {/* Floating Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          animate={{
-            x: [0, 100, 0],
-            y: [0, -100, 0],
-            rotate: [0, 180, 360],
+      {/* Ambient radial glow */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-[8%] left-1/2 -translate-x-1/2 w-[720px] h-[720px] rounded-full bg-[#CDFB4E]/10 blur-[120px]" />
+        <div className="absolute bottom-0 left-[15%] w-[380px] h-[380px] rounded-full bg-[#3B7A5A]/10 blur-[100px]" />
+        <div
+          className="absolute inset-0 opacity-[0.35]"
+          style={{
+            backgroundImage:
+              "radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px)",
+            backgroundSize: "26px 26px",
           }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          className="absolute top-1/4 left-1/4 w-32 h-32 bg-blue-200/30 dark:bg-blue-500/10 rounded-full blur-xl"
-        />
-        <motion.div
-          animate={{
-            x: [0, -50, 0],
-            y: [0, 100, 0],
-            rotate: [0, -180, -360],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          className="absolute bottom-1/4 right-1/4 w-24 h-24 bg-purple-200/30 dark:bg-purple-500/10 rounded-full blur-xl"
         />
       </div>
 
-      {/* Main Content */}
-      <div className="relative z-10 text-center">
-        {/* Greeting */}
+      {/* Scattered sparkles */}
+      <Sparkle className="absolute top-[18%] left-[10%]" delay={0} />
+      <Sparkle className="absolute top-[28%] right-[12%]" delay={1.2} size={14} />
+      <Sparkle className="absolute bottom-[22%] left-[16%]" delay={0.6} size={12} />
+      <Sparkle className="absolute bottom-[30%] right-[8%]" delay={1.8} size={20} />
+
+      {/* Main content */}
+      <div className="relative z-10 flex flex-col items-center text-center max-w-3xl">
+        {/* Avatar */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-4"
+          initial={{ opacity: 0, scale: 0.7 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="relative mb-5"
         >
-          <span className="inline-block px-4 py-2 bg-blue-100 dark:bg-blue-900/30 
-                         text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium
-                         border border-blue-200 dark:border-blue-700">
-             Welcome to my portfolio 
+          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#CDFB4E]/30 to-transparent p-[2px]">
+            <div className="w-full h-full rounded-full bg-[#10151280] backdrop-blur-sm border border-white/10 flex items-center justify-center">
+              <span className="font-['Fraunces',serif] text-2xl font-semibold text-[#F3F4EF]">
+                MY
+              </span>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Availability badge */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15, duration: 0.5 }}
+          className="mb-6"
+        >
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs font-medium tracking-wide text-[#B9C2BC]">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-[#CDFB4E] opacity-60 animate-ping" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#CDFB4E]" />
+            </span>
+            Open to freelance &amp; collabs
           </span>
         </motion.div>
 
-        {/* Name with typing effect - FASTER ANIMATION */}
-        <motion.div
-          variants={nameVariants}
+        {/* Headline */}
+        <motion.h1
           initial="hidden"
           animate="visible"
-          className="mb-6"
-          style={{
-            x: mousePosition.x,
-            y: mousePosition.y,
-          }}
+          variants={fadeUp}
+          custom={1}
+          className="font-['Fraunces',serif] text-4xl md:text-6xl font-semibold text-[#F3F4EF] leading-[1.1] mb-6"
         >
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white text-center leading-tight">
-            {"Hi, I'm ".split("").map((char, index) => (
-              <motion.span key={index} variants={letterVariants} className="inline-block">
-                {char}
-              </motion.span>
-            ))}
-            <br />
-            <motion.span 
-              className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 
-                         bg-clip-text text-transparent inline-block leading-tight"
-              whileHover={{ 
-                scale: 1.02,
-                textShadow: "0 0 20px rgba(59, 130, 246, 0.5)"
-              }}
-            >
-              {"Muhammad Yahya".split("").map((char, index) => (
-                <motion.span 
-                  key={index} 
-                  variants={letterVariants}
-                  whileHover={{ 
-                    scale: 1.1, 
-                    color: "#3B82F6",
-                    transition: { duration: 0.2 }
-                  }}
-                  className="inline-block"
-                  style={{ lineHeight: '1.1' }}
-                >
-                  {char === " " ? "\u00A0" : char}
-                </motion.span>
-              ))}
-            </motion.span>
-          </h1>
-        </motion.div>
+          Welcome to my
+          <br />
+          <span className="text-[#CDFB4E]">digital workshop</span>
+        </motion.h1>
 
-        {/* Professional Title */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.3, duration: 0.6, type: "spring" }} // Reduced delay from 0.5 to 0.3
-          className="mb-6"
-        >
-          <h2 className="text-xl md:text-2xl font-semibold text-gray-700 dark:text-gray-300">
-            <span className="text-blue-600 dark:text-blue-400">Front-End Developer</span> & 
-            <span className="text-purple-600 dark:text-purple-400"> UI/UX Enthusiast</span>
-          </h2>
-        </motion.div>
-
-        {/* Description with typewriter effect */}
+        {/* Subtitle */}
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.8 }} // Reduced delay from 0.8 to 0.5
-          className="max-w-3xl text-lg md:text-xl text-gray-600 dark:text-gray-300 text-center mb-8 leading-relaxed"
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+          custom={2}
+          className="text-base md:text-lg text-[#8B9691] leading-relaxed mb-10 max-w-xl"
         >
-          A detail-oriented Front-End Developer passionate about creating 
-          <motion.span
-            className="text-blue-600 dark:text-blue-400 font-semibold"
-            whileHover={{ scale: 1.02 }}
-          >
-            {" modern"}
-          </motion.span>,
-          <motion.span
-            className="text-purple-600 dark:text-purple-400 font-semibold"
-            whileHover={{ scale: 1.02 }}
-          >
-            {" user-friendly"}
-          </motion.span>, and
-          <motion.span
-            className="text-indigo-600 dark:text-indigo-400 font-semibold"
-            whileHover={{ scale: 1.02 }}
-          >
-            {" responsive"}
-          </motion.span> web interfaces.
+          I'm Muhammad Yahya, a Front-End Developer who turns ideas into
+          fast, responsive interfaces with React and Tailwind CSS.
         </motion.p>
 
-        {/* Enhanced Buttons */}
+        {/* Buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.6 }} // Reduced delay from 1.2 to 0.7
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+          custom={3}
           className="flex gap-4 flex-wrap justify-center mb-10"
         >
           <motion.a
-            href={cvFile} 
-            download = "Muhammad_Yahya_CV.pdf"
-            whileHover={{ 
-              scale: 1.05, 
-              boxShadow: "0 10px 30px rgba(59, 130, 246, 0.4)",
-              y: -2,
-              transition: { duration: 0.2 }
-            }}
-            whileTap={{ scale: 0.95 }}
-            className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 
-                       text-white rounded-xl font-semibold overflow-hidden
-                       shadow-lg hover:shadow-2xl transition-all duration-200"
+            href="#contact"
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.96 }}
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#CDFB4E] text-[#0A0F0D] font-semibold text-sm shadow-[0_8px_24px_rgba(205,251,78,0.25)] transition-transform"
           >
-            <span className="relative z-10 flex items-center gap-2">
-              <FaDownload className="group-hover:animate-bounce" />
-              Download Resume
-            </span>
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-blue-700 to-blue-800"
-              whileHover={{ 
-                scale: 1.05,
-                transition: { duration: 0.2 }
-              }}
-              style={{ zIndex: -1 }}
-            />
+            Let's talk
+            <FaArrowRight size={13} />
           </motion.a>
 
           <motion.a
-            href="#contact"
-            whileHover={{ 
-              scale: 1.05,
-              borderColor: "#3B82F6",
-              boxShadow: "0 5px 20px rgba(59, 130, 246, 0.3)",
-              y: -2,
-              transition: { duration: 0.2 }
-            }}
-            whileTap={{ scale: 0.95 }}
-            className="group px-8 py-4 border-2 border-gray-300 dark:border-gray-600 
-                       text-gray-700 dark:text-gray-300 rounded-xl font-semibold
-                       hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400
-                       transition-all duration-200 backdrop-blur-sm
-                       bg-white/50 dark:bg-gray-800/50"
+            href={cvFile}
+            download="Muhammad_Yahya_CV.pdf"
+            whileHover={{ y: -2, borderColor: "rgba(205,251,78,0.4)" }}
+            whileTap={{ scale: 0.96 }}
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/15 text-[#F3F4EF] font-semibold text-sm bg-white/5 backdrop-blur-sm transition-colors"
           >
-            <span className="flex items-center gap-2">
-              <FaEnvelope className="group-hover:animate-pulse" />
-              Contact Me
-            </span>
+            <FaDownload size={13} />
+            Download resume
           </motion.a>
         </motion.div>
 
-        {/* Enhanced Social Links */}
+        {/* Social icons */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9, duration: 0.6 }} // Reduced delay from 1.4 to 0.9
-          className="flex gap-4 justify-center items-center mt-10 flex-wrap"
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+          custom={4}
+          className="flex gap-3 justify-center items-center mb-16"
         >
-          {socialIcons.map((social, index) => (
+          {socialIcons.map((social) => (
             <motion.a
               key={social.label}
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{
-                scale: 1.2,
-                y: -5,
-                rotate: 5,
-                boxShadow: `0 10px 25px ${social.color}40`,
-                transition: { duration: 0.2 }
-              }}
-              whileTap={{ scale: 0.9 }}
-              className="relative p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg 
-                       border border-gray-200 dark:border-gray-700 group 
-                       transition-all duration-200"
+              aria-label={social.label}
+              whileHover={{ y: -3, scale: 1.08 }}
+              whileTap={{ scale: 0.92 }}
+              className="group relative w-10 h-10 rounded-full border border-white/10 bg-white/5 flex items-center justify-center transition-colors duration-200"
             >
               <social.icon
-                size={24}
-                className="text-gray-600 dark:text-gray-400 group-hover:text-white 
-                         transition-colors duration-200"
+                size={16}
+                className="relative z-10 text-[#8B9691] group-hover:text-[#0A0F0D] transition-colors duration-200"
               />
-              <motion.div
-                className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 -z-10
-                         transition-opacity duration-200"
+              <span
+                className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                 style={{ backgroundColor: social.color }}
-                whileHover={{ 
-                  opacity: 1,
-                  transition: { duration: 0.2 }
-                }}
               />
             </motion.a>
           ))}
+        </motion.div>
+
+        {/* Tech stack row */}
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+          custom={5}
+          className="w-full"
+        >
+          <p className="text-[11px] uppercase tracking-[0.25em] text-[#5C655F] mb-5">
+            Tech I work with
+          </p>
+          <div className="flex items-center justify-center gap-6 md:gap-10 flex-wrap opacity-80">
+            {techStack.map((tech) => (
+              <div
+                key={tech.label}
+                title={tech.label}
+                className="flex items-center gap-2 text-[#8B9691] hover:text-[#F3F4EF] transition-colors duration-200"
+              >
+                <tech.icon size={20} />
+                <span className="hidden md:inline text-sm font-medium">
+                  {tech.label}
+                </span>
+              </div>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>
