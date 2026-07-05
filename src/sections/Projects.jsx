@@ -90,21 +90,11 @@ export default function Projects() {
       {/* Slim, unobtrusive scrollbar for the horizontal row */}
       <style>{`
         .projects-scroll-row {
-          scrollbar-width: thin;
-          scrollbar-color: rgba(205,251,78,0.35) transparent;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
         }
         .projects-scroll-row::-webkit-scrollbar {
-          height: 6px;
-        }
-        .projects-scroll-row::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        .projects-scroll-row::-webkit-scrollbar-thumb {
-          background-color: rgba(205,251,78,0.35);
-          border-radius: 999px;
-        }
-        .projects-scroll-row::-webkit-scrollbar-thumb:hover {
-          background-color: rgba(205,251,78,0.55);
+          display: none;
         }
       `}</style>
 
