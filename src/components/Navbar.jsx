@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -19,6 +19,17 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
+  // The scroll listener recalculates the "current" section on every scroll
+  // tick. Without a lock, clicking a nav item and smooth-scrolling past
+  // intermediate sections causes the highlight pill to flicker onto those
+  // sections before landing on the clicked one — that's the "jerk". These
+  // refs suppress scroll-driven updates while a click-triggered scroll is
+  // still in flight, and release the lock once scrolling actually settles
+  // (with a safety timeout in case no further scroll events fire).
+  const isProgrammaticScroll = useRef(false);
+  const scrollSettleTimer = useRef(null);
+  const scrollLockTimeout = useRef(null);
+
   const links = [
     { name: "Home", href: "#home" },
     { name: "About", href: "#about" },
@@ -30,6 +41,16 @@ export default function Navbar() {
   // Active-section detection on scroll
   useEffect(() => {
     const handleScroll = () => {
+      if (isProgrammaticScroll.current) {
+        // Still mid-flight from a nav click — keep pushing the unlock
+        // window forward until scroll events actually stop.
+        clearTimeout(scrollSettleTimer.current);
+        scrollSettleTimer.current = setTimeout(() => {
+          isProgrammaticScroll.current = false;
+        }, 150);
+        return;
+      }
+
       const sections = links.map((l) => l.href.substring(1));
       let current = "home";
       sections.forEach((section) => {
@@ -43,19 +64,39 @@ export default function Navbar() {
     };
     window.addEventListener("scroll", handleScroll);
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(scrollSettleTimer.current);
+      clearTimeout(scrollLockTimeout.current);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleNavClick = (e, href, name) => {
     e.preventDefault();
     setOpen(false);
+
+    const sectionId = name.toLowerCase();
+
+    // Lock the scroll-driven detector and reflect the click immediately —
+    // the pill jumps straight to the clicked item instead of following
+    // whatever section happens to scroll past on the way there.
+    isProgrammaticScroll.current = true;
+    setActiveSection(sectionId);
+
+    clearTimeout(scrollSettleTimer.current);
+    clearTimeout(scrollLockTimeout.current);
+    // Safety net in case the target is already close enough that no further
+    // scroll events fire — don't let the lock get stuck on.
+    scrollLockTimeout.current = setTimeout(() => {
+      isProgrammaticScroll.current = false;
+    }, 1200);
+
     setTimeout(() => {
       const target = document.getElementById(href.substring(1));
       if (target) {
         const offset = Math.max(0, target.offsetTop - 90);
         window.scrollTo({ top: offset, behavior: "smooth" });
-        setActiveSection(name.toLowerCase());
       }
     }, 100);
   };

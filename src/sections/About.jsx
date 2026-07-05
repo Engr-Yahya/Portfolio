@@ -232,7 +232,7 @@ export default function About() {
                   <p className="text-[#8B9691] mb-5 text-sm">Front-End Developer</p>
                   <div className="space-y-2 text-sm text-[#B9C2BC]">
                     <div className="flex items-center justify-center gap-2">
-                      <span>📍</span> Nowshera, Pakistan
+                      <span>📍</span> Islamabad, Pakistan
                     </div>
                     <div className="flex items-center justify-center gap-2">
                       <span>🎓</span> BS Software Engineering
