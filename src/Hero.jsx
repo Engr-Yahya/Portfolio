@@ -30,11 +30,7 @@ function Sparkle({ className, delay = 0, size = 18 }) {
       height={size}
       className={className}
       initial={{ opacity: 0.15, scale: 0.7, rotate: 0 }}
-      animate={{
-        opacity: [0.15, 0.9, 0.15],
-        scale: [0.7, 1.1, 0.7],
-        rotate: [0, 15, 0],
-      }}
+      animate={{ opacity: [0.15, 0.9, 0.15], scale: [0.7, 1.1, 0.7], rotate: [0, 15, 0] }}
       transition={{ duration: 4, repeat: Infinity, delay, ease: "easeInOut" }}
     >
       <path
@@ -46,36 +42,11 @@ function Sparkle({ className, delay = 0, size = 18 }) {
 }
 
 const socialIcons = [
-  {
-    icon: FaLinkedin,
-    href: "https://www.linkedin.com/in/muhammad-yahya-se25",
-    color: "#0077B5",
-    label: "LinkedIn",
-  },
-  {
-    icon: FaGithub,
-    href: "https://github.com/Engr-Yahya",
-    color: "#E9EDE9",
-    label: "GitHub",
-  },
-  {
-    icon: FaInstagram,
-    href: "https://instagram.com/yahya_butt.0",
-    color: "#E4405F",
-    label: "Instagram",
-  },
-  {
-    icon: FaFacebook,
-    href: "https://www.facebook.com/share/1A4ZuGougu/",
-    color: "#1877F2",
-    label: "Facebook",
-  },
-  {
-    icon: FaDiscord,
-    href: "https://discord.gg/yahyashafiq.",
-    color: "#5865F2",
-    label: "Discord",
-  },
+  { icon: FaLinkedin, href: "https://www.linkedin.com/in/muhammad-yahya-se25", color: "#0077B5", label: "LinkedIn" },
+  { icon: FaGithub, href: "https://github.com/Engr-Yahya", color: "#E9EDE9", label: "GitHub" },
+  { icon: FaInstagram, href: "https://instagram.com/yahya_butt.0", color: "#E4405F", label: "Instagram" },
+  { icon: FaFacebook, href: "https://www.facebook.com/share/1A4ZuGougu/", color: "#1877F2", label: "Facebook" },
+  { icon: FaDiscord, href: "https://discord.gg/yahyashafiq.", color: "#5865F2", label: "Discord" },
 ];
 
 const techStack = [
@@ -88,7 +59,7 @@ const techStack = [
 ];
 
 // Duplicate the list so the marquee loop is seamless
-const marqueeTechStack = [...techStack, ...techStack];
+const marqueeTechStack = [...techStack, ...techStack, ...techStack];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -135,24 +106,12 @@ export default function Hero() {
 
       {/* Scattered sparkles */}
       <Sparkle className="absolute top-[18%] left-[10%]" delay={0} />
-      <Sparkle
-        className="absolute top-[28%] right-[12%]"
-        delay={1.2}
-        size={14}
-      />
-      <Sparkle
-        className="absolute bottom-[22%] left-[16%]"
-        delay={0.6}
-        size={12}
-      />
-      <Sparkle
-        className="absolute bottom-[30%] right-[8%]"
-        delay={1.8}
-        size={20}
-      />
+      <Sparkle className="absolute top-[28%] right-[12%]" delay={1.2} size={14} />
+      <Sparkle className="absolute bottom-[22%] left-[16%]" delay={0.6} size={12} />
+      <Sparkle className="absolute bottom-[30%] right-[8%]" delay={1.8} size={20} />
 
       {/* Main content */}
-      <div className="relative z-10 flex flex-col items-center text-center max-w-3xl">
+      <div className="relative z-10 flex flex-col items-center text-center max-w-3xl w-full">
         {/* Avatar */}
         <motion.div
           initial={{ opacity: 0, scale: 0.7 }}
@@ -191,7 +150,7 @@ export default function Hero() {
           animate="visible"
           variants={fadeUp}
           custom={1}
-          className="font-['Fraunces',serif] text-4xl md:text-6xl font-semibold text-[#F3F4EF] leading-[1.1] mb-6"
+          className="w-full font-['Fraunces',serif] text-4xl md:text-6xl font-semibold text-[#F3F4EF] leading-[1.1] mb-6"
         >
           Welcome to my
           <br />
@@ -204,10 +163,10 @@ export default function Hero() {
           animate="visible"
           variants={fadeUp}
           custom={2}
-          className="text-base md:text-lg text-[#8B9691] leading-relaxed mb-10 max-w-xl"
+          className="w-full text-base md:text-lg text-[#8B9691] leading-relaxed mb-10 max-w-xl mx-auto break-words"
         >
-          I'm Muhammad Yahya, a Front-End Developer who turns ideas into fast,
-          responsive interfaces with React and Tailwind CSS.
+          I'm Muhammad Yahya, a Front-End Developer who turns ideas into
+          fast, responsive interfaces with React and Tailwind CSS.
         </motion.p>
 
         {/* Buttons */}

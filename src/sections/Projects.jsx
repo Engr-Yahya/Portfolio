@@ -14,9 +14,9 @@ import medhub from "../assets/medhub.png";
 // the cards keep some of the reference's varied color panels without
 // clashing with the single lime brand accent.
 //
-// Cards now run as an auto-scrolling marquee (same technique as the Hero
-// tech-stack strip): the list is duplicated for a seamless loop, and the
-// track pauses on hover so the Live Demo / Code links stay clickable.
+// Cards are laid out in a horizontally scrollable row (no auto-scroll) —
+// the user drags/swipes/scrolls through them manually, with scroll-snap so
+// each card settles into place.
 // -----------------------------------------------------------------------------
 
 export default function Projects() {
@@ -75,9 +75,6 @@ export default function Projects() {
     },
   ];
 
-  // Duplicate so the marquee loop is seamless
-  const marqueeProjects = [...projects, ...projects];
-
   const statusConfig = {
     completed: { color: "#CDFB4E", icon: FaStar, text: "Completed" },
     development: { color: "#F5B94D", icon: FaCode, text: "In Development" },
@@ -90,17 +87,24 @@ export default function Projects() {
       ref={ref}
       className="relative py-24 px-6 bg-[#0A0F0D] overflow-hidden"
     >
-      {/* Marquee keyframes + hover-pause */}
+      {/* Slim, unobtrusive scrollbar for the horizontal row */}
       <style>{`
-        @keyframes projectsMarquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+        .projects-scroll-row {
+          scrollbar-width: thin;
+          scrollbar-color: rgba(205,251,78,0.35) transparent;
         }
-        .projects-marquee-track {
-          animation: projectsMarquee 50s linear infinite;
+        .projects-scroll-row::-webkit-scrollbar {
+          height: 6px;
         }
-        .projects-marquee-wrap:hover .projects-marquee-track {
-          animation-play-state: paused;
+        .projects-scroll-row::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .projects-scroll-row::-webkit-scrollbar-thumb {
+          background-color: rgba(205,251,78,0.35);
+          border-radius: 999px;
+        }
+        .projects-scroll-row::-webkit-scrollbar-thumb:hover {
+          background-color: rgba(205,251,78,0.55);
         }
       `}</style>
 
@@ -124,113 +128,106 @@ export default function Projects() {
           </h2>
           <p className="text-[#8B9691] max-w-xl mx-auto">
             A handful of builds that show how I think about interfaces, from job
-            portals to healthcare apps. Hover to pause and explore.
+            portals to healthcare apps. Scroll sideways to browse.
           </p>
         </motion.div>
 
-        {/* Project Marquee */}
+        {/* Project Row — manual horizontal scroll */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.15 }}
-          className="projects-marquee-wrap relative w-full overflow-hidden"
-          style={{
-            maskImage:
-              "linear-gradient(to right, transparent, black 4%, black 96%, transparent)",
-            WebkitMaskImage:
-              "linear-gradient(to right, transparent, black 4%, black 96%, transparent)",
-          }}
+          className="projects-scroll-row flex gap-6 overflow-x-auto pb-6 px-6 -mx-6 snap-x snap-mandatory"
+          style={{ WebkitOverflowScrolling: "touch" }}
         >
-          <div className="projects-marquee-track flex items-stretch gap-6 w-max">
-            {marqueeProjects.map((project, index) => {
-              const status = statusConfig[project.status];
+          {projects.map((project) => {
+            const status = statusConfig[project.status];
 
-              return (
-                <div
-                  key={`${project.title}-${index}`}
-                  className="w-[340px] sm:w-[380px] shrink-0 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-[#CDFB4E]/30 transition-colors duration-300 overflow-hidden flex flex-col"
-                >
-                  {/* Image */}
-                  <div className={`bg-gradient-to-br ${project.frame} p-5 flex items-center justify-center`}>
-                    <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl w-full aspect-[16/10]">
-                      <img
-                        src={project.img}
-                        alt={project.title}
-                        className="w-full h-full object-cover"
-                        draggable="false"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-6 flex flex-col flex-1">
-                    <div className="flex items-center gap-2 mb-3 flex-wrap">
-                      <span className="text-[10px] uppercase tracking-[0.18em] text-[#8B9691]">
-                        {project.eyebrow}
-                      </span>
-                      <span
-                        className="flex items-center gap-1.5 text-[10px] font-medium px-2.5 py-1 rounded-full"
-                        style={{ backgroundColor: `${status.color}1A`, color: status.color }}
-                      >
-                        <status.icon size={9} />
-                        {status.text}
-                      </span>
-                    </div>
-
-                    <h3 className="font-['Fraunces',serif] text-xl font-semibold text-[#F3F4EF] mb-2">
-                      {project.title}
-                    </h3>
-
-                    <p className="text-[#8B9691] text-sm leading-relaxed mb-4">
-                      {project.desc}
-                    </p>
-
-                    <ul className="space-y-1.5 mb-4">
-                      {project.features.map((feature) => (
-                        <li key={feature} className="flex items-center gap-2 text-xs text-[#B9C2BC]">
-                          <FaCheckCircle className="text-[#CDFB4E] flex-shrink-0" size={11} />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-
-                    <div className="flex flex-wrap gap-1.5 mb-6">
-                      {project.tech.map((tech) => (
-                        <span
-                          key={tech.name}
-                          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-white/5 border border-white/10 text-[#B9C2BC]"
-                        >
-                          <tech.icon style={{ color: tech.color }} size={11} />
-                          {tech.name}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="flex gap-2.5 mt-auto">
-                      <a
-                        href={project.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#CDFB4E] text-[#0A0F0D] text-xs font-semibold hover:brightness-95 transition"
-                      >
-                        <FaExternalLinkAlt size={10} />
-                        Live Demo
-                      </a>
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-white/15 text-[#F3F4EF] text-xs font-semibold bg-white/5 hover:border-[#CDFB4E]/40 transition-colors"
-                      >
-                        <FaGithub size={10} />
-                        Code
-                      </a>
-                    </div>
+            return (
+              <div
+                key={project.title}
+                className="snap-start w-[320px] sm:w-[380px] shrink-0 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-[#CDFB4E]/30 transition-colors duration-300 overflow-hidden flex flex-col"
+              >
+                {/* Image */}
+                <div className={`bg-gradient-to-br ${project.frame} p-5 flex items-center justify-center`}>
+                  <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl w-full aspect-[16/10]">
+                    <img
+                      src={project.img}
+                      alt={project.title}
+                      className="w-full h-full object-cover"
+                      draggable="false"
+                    />
                   </div>
                 </div>
-              );
-            })}
-          </div>
+
+                {/* Content */}
+                <div className="p-6 flex flex-col flex-1">
+                  <div className="flex items-center gap-2 mb-3 flex-wrap">
+                    <span className="text-[10px] uppercase tracking-[0.18em] text-[#8B9691]">
+                      {project.eyebrow}
+                    </span>
+                    <span
+                      className="flex items-center gap-1.5 text-[10px] font-medium px-2.5 py-1 rounded-full"
+                      style={{ backgroundColor: `${status.color}1A`, color: status.color }}
+                    >
+                      <status.icon size={9} />
+                      {status.text}
+                    </span>
+                  </div>
+
+                  <h3 className="font-['Fraunces',serif] text-xl font-semibold text-[#F3F4EF] mb-2">
+                    {project.title}
+                  </h3>
+
+                  <p className="text-[#8B9691] text-sm leading-relaxed mb-4">
+                    {project.desc}
+                  </p>
+
+                  <ul className="space-y-1.5 mb-4">
+                    {project.features.map((feature) => (
+                      <li key={feature} className="flex items-center gap-2 text-xs text-[#B9C2BC]">
+                        <FaCheckCircle className="text-[#CDFB4E] flex-shrink-0" size={11} />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="flex flex-wrap gap-1.5 mb-6">
+                    {project.tech.map((tech) => (
+                      <span
+                        key={tech.name}
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-white/5 border border-white/10 text-[#B9C2BC]"
+                      >
+                        <tech.icon style={{ color: tech.color }} size={11} />
+                        {tech.name}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex gap-2.5 mt-auto">
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#CDFB4E] text-[#0A0F0D] text-xs font-semibold hover:brightness-95 transition"
+                    >
+                      <FaExternalLinkAlt size={10} />
+                      Live Demo
+                    </a>
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-white/15 text-[#F3F4EF] text-xs font-semibold bg-white/5 hover:border-[#CDFB4E]/40 transition-colors"
+                    >
+                      <FaGithub size={10} />
+                      Code
+                    </a>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </motion.div>
 
         {/* Call to Action */}
