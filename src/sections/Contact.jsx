@@ -91,8 +91,8 @@ export default function Contact() {
 
   const contactInfo = [
     { icon: FaEnvelope, label: "Email", value: "yahyashafiq309@gmail.com", href: "mailto:yahyashafiq309@gmail.com" },
-    { icon: FaPhone, label: "Phone", value: "(+92) 3490464950", href: "tel:+923490464950" },
-    { icon: FaMapMarkerAlt, label: "Location", value: "Nowshera, Pakistan", href: "#" },
+    { icon: FaPhone, label: "Phone", value: "(+92) 3486787534", href: "tel:+923486787534" },
+    { icon: FaMapMarkerAlt, label: "Location", value: "Islamabad, Pakistan", href: "#" },
   ];
 
   const socialLinks = [
@@ -190,7 +190,7 @@ export default function Contact() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group relative flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[#B9C2BC] text-sm font-medium overflow-hidden transition-colors duration-200"
+                    className="group relative flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[#B9C2BC] text-sm font-medium overflow-hidden"
                   >
                     <social.icon size={14} className="relative z-10 group-hover:text-[#0A0F0D] transition-colors duration-200" />
                     <span className="relative z-10 hidden sm:inline group-hover:text-[#0A0F0D] transition-colors duration-200">
@@ -316,8 +316,9 @@ export default function Contact() {
                 onClick={handleSubmit}
                 disabled={isSubmitting}
                 whileHover={!isSubmitting ? { y: -2 } : {}}
-                whileTap={!isSubmitting ? { scale: 0.98 } : {}}
-                className="w-full flex items-center justify-center gap-3 px-6 py-3.5 rounded-full bg-[#CDFB4E] text-[#0A0F0D] font-semibold text-sm transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
+                whileTap={!isSubmitting ? { scale: 0.98, y: 0 } : {}}
+                transition={{ type: "spring", stiffness: 400, damping: 22 }}
+                className="w-full flex items-center justify-center gap-3 px-6 py-3.5 rounded-full bg-[#CDFB4E] text-[#0A0F0D] font-semibold text-sm disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
                   <>

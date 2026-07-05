@@ -30,7 +30,11 @@ function Sparkle({ className, delay = 0, size = 18 }) {
       height={size}
       className={className}
       initial={{ opacity: 0.15, scale: 0.7, rotate: 0 }}
-      animate={{ opacity: [0.15, 0.9, 0.15], scale: [0.7, 1.1, 0.7], rotate: [0, 15, 0] }}
+      animate={{
+        opacity: [0.15, 0.9, 0.15],
+        scale: [0.7, 1.1, 0.7],
+        rotate: [0, 15, 0],
+      }}
       transition={{ duration: 4, repeat: Infinity, delay, ease: "easeInOut" }}
     >
       <path
@@ -42,11 +46,36 @@ function Sparkle({ className, delay = 0, size = 18 }) {
 }
 
 const socialIcons = [
-  { icon: FaLinkedin, href: "https://www.linkedin.com/in/muhammad-yahya-se25", color: "#0077B5", label: "LinkedIn" },
-  { icon: FaGithub, href: "https://github.com/Engr-Yahya", color: "#E9EDE9", label: "GitHub" },
-  { icon: FaInstagram, href: "https://instagram.com/yahya_butt.0", color: "#E4405F", label: "Instagram" },
-  { icon: FaFacebook, href: "https://www.facebook.com/share/1A4ZuGougu/", color: "#1877F2", label: "Facebook" },
-  { icon: FaDiscord, href: "https://discord.gg/yahyashafiq.", color: "#5865F2", label: "Discord" },
+  {
+    icon: FaLinkedin,
+    href: "https://www.linkedin.com/in/muhammad-yahya-se25",
+    color: "#0077B5",
+    label: "LinkedIn",
+  },
+  {
+    icon: FaGithub,
+    href: "https://github.com/Engr-Yahya",
+    color: "#E9EDE9",
+    label: "GitHub",
+  },
+  {
+    icon: FaInstagram,
+    href: "https://instagram.com/yahya_butt.0",
+    color: "#E4405F",
+    label: "Instagram",
+  },
+  {
+    icon: FaFacebook,
+    href: "https://www.facebook.com/share/1A4ZuGougu/",
+    color: "#1877F2",
+    label: "Facebook",
+  },
+  {
+    icon: FaDiscord,
+    href: "https://discord.gg/yahyashafiq.",
+    color: "#5865F2",
+    label: "Discord",
+  },
 ];
 
 const techStack = [
@@ -57,6 +86,9 @@ const techStack = [
   { icon: FaGitAlt, label: "Git" },
   { icon: FaGithub, label: "GitHub" },
 ];
+
+// Duplicate the list so the marquee loop is seamless
+const marqueeTechStack = [...techStack, ...techStack];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -73,6 +105,20 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-32 pb-20 overflow-hidden bg-[#0A0F0D]"
     >
+      {/* Marquee keyframes + hover-pause */}
+      <style>{`
+        @keyframes techMarquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .tech-marquee-track {
+          animation: techMarquee 22s linear infinite;
+        }
+        .tech-marquee-wrap:hover .tech-marquee-track {
+          animation-play-state: paused;
+        }
+      `}</style>
+
       {/* Ambient radial glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-[8%] left-1/2 -translate-x-1/2 w-[720px] h-[720px] rounded-full bg-[#CDFB4E]/10 blur-[120px]" />
@@ -89,9 +135,21 @@ export default function Hero() {
 
       {/* Scattered sparkles */}
       <Sparkle className="absolute top-[18%] left-[10%]" delay={0} />
-      <Sparkle className="absolute top-[28%] right-[12%]" delay={1.2} size={14} />
-      <Sparkle className="absolute bottom-[22%] left-[16%]" delay={0.6} size={12} />
-      <Sparkle className="absolute bottom-[30%] right-[8%]" delay={1.8} size={20} />
+      <Sparkle
+        className="absolute top-[28%] right-[12%]"
+        delay={1.2}
+        size={14}
+      />
+      <Sparkle
+        className="absolute bottom-[22%] left-[16%]"
+        delay={0.6}
+        size={12}
+      />
+      <Sparkle
+        className="absolute bottom-[30%] right-[8%]"
+        delay={1.8}
+        size={20}
+      />
 
       {/* Main content */}
       <div className="relative z-10 flex flex-col items-center text-center max-w-3xl">
@@ -148,8 +206,8 @@ export default function Hero() {
           custom={2}
           className="text-base md:text-lg text-[#8B9691] leading-relaxed mb-10 max-w-xl"
         >
-          I'm Muhammad Yahya, a Front-End Developer who turns ideas into
-          fast, responsive interfaces with React and Tailwind CSS.
+          I'm Muhammad Yahya, a Front-End Developer who turns ideas into fast,
+          responsive interfaces with React and Tailwind CSS.
         </motion.p>
 
         {/* Buttons */}
@@ -162,9 +220,10 @@ export default function Hero() {
         >
           <motion.a
             href="#contact"
-            whileHover={{ y: -2 }}
-            whileTap={{ scale: 0.96 }}
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#CDFB4E] text-[#0A0F0D] font-semibold text-sm shadow-[0_8px_24px_rgba(205,251,78,0.25)] transition-transform"
+            whileHover={{ y: -3, scale: 1.03 }}
+            whileTap={{ scale: 0.96, y: 0 }}
+            transition={{ type: "spring", stiffness: 400, damping: 20 }}
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#CDFB4E] text-[#0A0F0D] font-semibold text-sm shadow-[0_8px_24px_rgba(205,251,78,0.25)] hover:shadow-[0_12px_32px_rgba(205,251,78,0.4)] transition-shadow duration-300 ease-out"
           >
             Let's talk
             <FaArrowRight size={13} />
@@ -173,9 +232,10 @@ export default function Hero() {
           <motion.a
             href={cvFile}
             download="Muhammad_Yahya_CV.pdf"
-            whileHover={{ y: -2, borderColor: "rgba(205,251,78,0.4)" }}
-            whileTap={{ scale: 0.96 }}
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/15 text-[#F3F4EF] font-semibold text-sm bg-white/5 backdrop-blur-sm transition-colors"
+            whileHover={{ y: -3, scale: 1.03 }}
+            whileTap={{ scale: 0.96, y: 0 }}
+            transition={{ type: "spring", stiffness: 400, damping: 20 }}
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/15 hover:border-[#CDFB4E]/40 text-[#F3F4EF] font-semibold text-sm bg-white/5 hover:bg-white/[0.08] backdrop-blur-sm transition-colors duration-300 ease-out"
           >
             <FaDownload size={13} />
             Download resume
@@ -213,7 +273,7 @@ export default function Hero() {
           ))}
         </motion.div>
 
-        {/* Tech stack row */}
+        {/* Tech stack marquee */}
         <motion.div
           initial="hidden"
           animate="visible"
@@ -224,19 +284,30 @@ export default function Hero() {
           <p className="text-[11px] uppercase tracking-[0.25em] text-[#5C655F] mb-5">
             Tech I work with
           </p>
-          <div className="flex items-center justify-center gap-6 md:gap-10 flex-wrap opacity-80">
-            {techStack.map((tech) => (
-              <div
-                key={tech.label}
-                title={tech.label}
-                className="flex items-center gap-2 text-[#8B9691] hover:text-[#F3F4EF] transition-colors duration-200"
-              >
-                <tech.icon size={20} />
-                <span className="hidden md:inline text-sm font-medium">
-                  {tech.label}
-                </span>
-              </div>
-            ))}
+
+          <div
+            className="tech-marquee-wrap relative w-full overflow-hidden"
+            style={{
+              maskImage:
+                "linear-gradient(to right, transparent, black 12%, black 88%, transparent)",
+              WebkitMaskImage:
+                "linear-gradient(to right, transparent, black 12%, black 88%, transparent)",
+            }}
+          >
+            <div className="tech-marquee-track flex items-center gap-10 md:gap-14 w-max">
+              {marqueeTechStack.map((tech, i) => (
+                <div
+                  key={`${tech.label}-${i}`}
+                  title={tech.label}
+                  className="flex items-center gap-2 text-[#8B9691] hover:text-[#F3F4EF] transition-colors duration-200 shrink-0"
+                >
+                  <tech.icon size={20} />
+                  <span className="hidden md:inline text-sm font-medium whitespace-nowrap">
+                    {tech.label}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>

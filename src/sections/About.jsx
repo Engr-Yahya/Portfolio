@@ -41,13 +41,6 @@ export default function About() {
       color: "#7DD3FC",
     },
     {
-      year: "2022",
-      title: "Front-End Developer, LinkNBit",
-      description: "Building responsive React & React Native apps, ongoing since",
-      icon: FaBriefcase,
-      color: "#34D399",
-    },
-    {
       year: "2025",
       title: "Web Developer Internship",
       description: "Worked with React, Material UI, Tailwind CSS and Jira in Mansehra",
@@ -60,6 +53,13 @@ export default function About() {
       description: "Completed my degree with MedHub, a cross-platform patient-doctor app",
       icon: FaAward,
       color: "#CDFB4E",
+    },
+    {
+      year: "2026",
+      title: "Front-End Developer, Linknbit",
+      description: "Working as a front-end developer at Linknbit, contributing to various client projects",
+      icon: FaBriefcase,
+      color: "#34D399",
     },
   ];
 
@@ -116,8 +116,12 @@ export default function About() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.5, delay: 0.25 + index * 0.08 }}
-              whileHover={{ y: -6, borderColor: "rgba(205,251,78,0.35)" }}
-              className="rounded-2xl p-6 text-center bg-white/[0.03] border border-white/10 backdrop-blur-sm transition-colors duration-300"
+              whileHover={{
+                y: -6,
+                transition: { type: "spring", stiffness: 300, damping: 20 },
+              }}
+              whileTap={{ y: -2 }}
+              className="rounded-2xl p-6 text-center bg-white/[0.03] border border-white/10 hover:border-[#CDFB4E]/35 backdrop-blur-sm transition-colors duration-300 ease-out"
             >
               <div className="text-2xl mb-2">{stat.icon}</div>
               <div className="text-2xl md:text-3xl font-semibold text-[#CDFB4E] mb-1">
@@ -265,7 +269,7 @@ export default function About() {
                         index % 2 === 0 ? "md:pr-10" : "md:pl-10"
                       }`}
                     >
-                      <div className="rounded-2xl p-6 bg-white/[0.03] border border-white/10 backdrop-blur-sm hover:border-white/20 transition-colors duration-300">
+                      <div className="rounded-2xl p-6 bg-white/[0.03] border border-white/10 hover:border-white/20 transition-colors duration-300">
                         <div className="flex items-center gap-3 mb-3">
                           <div
                             className="w-10 h-10 rounded-full flex items-center justify-center"
