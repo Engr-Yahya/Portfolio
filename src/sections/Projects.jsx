@@ -1,29 +1,98 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { FaExternalLinkAlt, FaGithub, FaRocket, FaCode, FaStar, FaCheckCircle } from "react-icons/fa";
-import { SiReact, SiTailwindcss, SiFramer, SiVite } from "react-icons/si";
+import {
+  FaExternalLinkAlt,
+  FaGithub,
+  FaRocket,
+  FaCode,
+  FaStar,
+  FaCheckCircle,
+} from "react-icons/fa";
+import {
+  SiReact,
+  SiTailwindcss,
+  SiFramer,
+  SiVite,
+  SiGithub,
+  SiReactquery,
+  SiChartdotjs,
+} from "react-icons/si";
 import projectImg from "../assets/novax-job-portal.png";
 import ecommerce from "../assets/ecommerce.png";
 import medhub from "../assets/medhub.png";
-
-// -----------------------------------------------------------------------------
-// Same token system as Navbar / Hero / About:
-//   bg base #0A0F0D · glass rgba(255,255,255,.03) · border rgba(255,255,255,.1)
-//   accent lime #CDFB4E · text primary #F3F4EF · text muted #8B9691
-// Each project image sits inside a tinted "frame" (emerald / sky / amber) so
-// the cards keep some of the reference's varied color panels without
-// clashing with the single lime brand accent.
-//
-// Cards are laid out in a horizontally scrollable row (no auto-scroll) —
-// the user drags/swipes/scrolls through them manually, with scroll-snap so
-// each card settles into place.
-// -----------------------------------------------------------------------------
-
+import GitHubFinder from "../assets/github-finder.png";
+import TodoImg from "../assets/todo.png";
+import ExpenseTracker from "../assets/expense-tracker.png";
 export default function Projects() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const projects = [
+    {
+      eyebrow: "GITHUB API · 2026",
+      title: "GitHub Account Finder",
+      desc: "A GitHub profile explorer that lets users search any username, view profile details, and browse the user's most popular repositories using the GitHub REST API.",
+      img: GitHubFinder,
+      frame: "from-[#1f1f1f] to-[#0d1310]",
+      tech: [
+        { name: "React", icon: SiReact, color: "#CDFB4E" },
+        { name: "Vite", icon: SiVite, color: "#7DD3FC" },
+        { name: "TailwindCSS", icon: SiTailwindcss, color: "#CDFB4E" },
+        { name: "GitHub API", icon: SiGithub, color: "#F5B94D" },
+      ],
+      live: "https://github-finder-three-ruddy.vercel.app/",
+      github: "https://github.com/Engr-Yahya/Github-Finder",
+      status: "completed",
+      features: ["Search GitHub users", "Profile overview", "Top repositories"],
+    },
+    {
+      eyebrow: "Todo App · 2026",
+      title: "TaskFlow Todo App",
+      desc: "A feature-rich task management application with authentication, protected routes, CRUD operations, and TanStack Query for efficient data fetching, caching, and seamless user experience.",
+      img: TodoImg,
+      frame: "from-[#142633] to-[#0d1310]",
+      tech: [
+        { name: "React", icon: SiReact, color: "#CDFB4E" },
+        { name: "Vite", icon: SiVite, color: "#7DD3FC" },
+        { name: "TailwindCSS", icon: SiTailwindcss, color: "#CDFB4E" },
+        { name: "TanStack Query", icon: SiReactquery, color: "#FF4154" },
+      ],
+      live: "https://todo-app-navy-five-58.vercel.app/",
+      github: "https://github.com/Engr-Yahya/todoApp",
+      status: "completed",
+      features: [
+        "Authentication",
+        "Protected routes",
+        "Full CRUD operations",
+        "TanStack Query caching",
+        "Confirmation modals",
+        "Search & filtering",
+      ],
+    },
+    {
+      eyebrow: "FINANCE APP · 2026",
+      title: "Expense Tracker",
+      desc: "A personal finance tracker that helps users manage expenses, set monthly category budgets, and monitor spending progress with interactive charts and progress indicators.",
+      img: ExpenseTracker,
+      frame: "from-[#1d2816] to-[#0d1310]",
+      tech: [
+        { name: "React", icon: SiReact, color: "#CDFB4E" },
+        { name: "Vite", icon: SiVite, color: "#7DD3FC" },
+        { name: "TailwindCSS", icon: SiTailwindcss, color: "#CDFB4E" },
+        { name: "Chart.js", icon: SiChartdotjs, color: "#FF6384" },
+      ],
+      live: "https://expense-tracker-nine-ecru.vercel.app",
+      github: "https://github.com/Engr-Yahya/Expense-Tracker",
+      status: "completed",
+      features: [
+        "Expense categorization",
+        "Monthly budgets",
+        "Budget progress bars",
+        "Percentage tracking",
+        "Expense analytics",
+        "Responsive dashboard",
+      ],
+    },
     {
       eyebrow: "JOB PORTAL · 2025",
       title: "NovaX Job Portal",
@@ -39,10 +108,14 @@ export default function Projects() {
       live: "https://engr-yahya.github.io/novaX-Job-Portal/",
       github: "https://github.com/Engr-Yahya/novaX-Job-Portal",
       status: "development",
-      features: ["Employer dashboards", "Job posting flow", "Mobile-friendly UI"],
+      features: [
+        "Employer dashboards",
+        "Job posting flow",
+        "Mobile-friendly UI",
+      ],
     },
     {
-      eyebrow: "THESIS PROJECT · 2025",
+      eyebrow: "FYP PROJECT · 2025",
       title: "MedHub",
       desc: "A cross-platform mobile app that digitizes patient–doctor interactions, from booking to prescription history.",
       img: medhub,
@@ -54,7 +127,11 @@ export default function Projects() {
       live: "https://1drv.ms/f/c/9A4C5EC985827BCA/Et1wODbZyV9Et_sdW92Wh7EBEw3QYnyV7QaiBlf9fAJTLg?e=5s3LzD",
       github: "https://github.com/Engr-Yahya/MedHub-FYP",
       status: "completed",
-      features: ["Appointment booking", "Prescription history", "Role-based access"],
+      features: [
+        "Appointment booking",
+        "Prescription history",
+        "Role-based access",
+      ],
     },
     {
       eyebrow: "E-COMMERCE · ONGOING",
@@ -74,7 +151,6 @@ export default function Projects() {
       features: ["Dark mode support", "Smooth animations", "Responsive layout"],
     },
   ];
-
   const statusConfig = {
     completed: { color: "#CDFB4E", icon: FaStar, text: "Completed" },
     development: { color: "#F5B94D", icon: FaCode, text: "In Development" },
@@ -139,7 +215,9 @@ export default function Projects() {
                 className="snap-start w-[320px] sm:w-[380px] shrink-0 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-[#CDFB4E]/30 transition-colors duration-300 overflow-hidden flex flex-col"
               >
                 {/* Image */}
-                <div className={`bg-gradient-to-br ${project.frame} p-5 flex items-center justify-center`}>
+                <div
+                  className={`bg-gradient-to-br ${project.frame} p-5 flex items-center justify-center`}
+                >
                   <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl w-full aspect-[16/10]">
                     <img
                       src={project.img}
@@ -158,7 +236,10 @@ export default function Projects() {
                     </span>
                     <span
                       className="flex items-center gap-1.5 text-[10px] font-medium px-2.5 py-1 rounded-full"
-                      style={{ backgroundColor: `${status.color}1A`, color: status.color }}
+                      style={{
+                        backgroundColor: `${status.color}1A`,
+                        color: status.color,
+                      }}
                     >
                       <status.icon size={9} />
                       {status.text}
@@ -175,8 +256,14 @@ export default function Projects() {
 
                   <ul className="space-y-1.5 mb-4">
                     {project.features.map((feature) => (
-                      <li key={feature} className="flex items-center gap-2 text-xs text-[#B9C2BC]">
-                        <FaCheckCircle className="text-[#CDFB4E] flex-shrink-0" size={11} />
+                      <li
+                        key={feature}
+                        className="flex items-center gap-2 text-xs text-[#B9C2BC]"
+                      >
+                        <FaCheckCircle
+                          className="text-[#CDFB4E] flex-shrink-0"
+                          size={11}
+                        />
                         {feature}
                       </li>
                     ))}
