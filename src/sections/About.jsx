@@ -2,15 +2,6 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { FaGraduationCap, FaBriefcase, FaCode, FaHeart, FaAward, FaUsers, FaLightbulb, FaClock } from "react-icons/fa";
 
-// -----------------------------------------------------------------------------
-// Same token system as Navbar.jsx / Hero.jsx:
-//   bg base #0A0F0D · glass rgba(255,255,255,.05) · border rgba(255,255,255,.1)
-//   accent lime #CDFB4E · text primary #F3F4EF · text muted #8B9691
-// Timeline/skill dots use a small palette of accent variants (lime, emerald,
-// amber, sky) instead of the old blue/purple pairing, kept muted so nothing
-// competes with the lime accent.
-// -----------------------------------------------------------------------------
-
 export default function About() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -98,7 +89,7 @@ export default function About() {
           <p className="text-[11px] uppercase tracking-[0.3em] text-[#CDFB4E] mb-3">
             About Me
           </p>
-          <h2 className="font-['Fraunces',serif] text-4xl md:text-5xl font-semibold text-[#F3F4EF]">
+          <h2 className="text-4xl md:text-5xl font-semibold text-[#F3F4EF]">
             Know who I am
           </h2>
         </motion.div>
@@ -115,12 +106,11 @@ export default function About() {
               key={stat.label}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.5, delay: 0.25 + index * 0.08 }}
+              transition={{ duration: 0.5 }}
               whileHover={{
-                y: -6,
+                y: -10,
                 transition: { type: "spring", stiffness: 300, damping: 20 },
               }}
-              whileTap={{ y: -2 }}
               className="rounded-2xl p-6 text-center bg-white/[0.03] border border-white/10 hover:border-[#CDFB4E]/35 backdrop-blur-sm transition-colors duration-300 ease-out"
             >
               <div className="text-2xl mb-2">{stat.icon}</div>
@@ -178,7 +168,7 @@ export default function About() {
           {activeTab === "story" && (
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="space-y-5">
-                <h3 className="font-['Fraunces',serif] text-2xl md:text-3xl font-semibold text-[#F3F4EF]">
+                <h3 className="text-2xl md:text-3xl font-semibold text-[#F3F4EF]">
                   Hello, I'm Muhammad Yahya 👋
                 </h3>
                 <div className="space-y-4 text-[#8B9691] leading-relaxed">
@@ -221,7 +211,7 @@ export default function About() {
                 <div className="text-center">
                   <div className="w-20 h-20 rounded-full mx-auto mb-4 bg-gradient-to-br from-[#CDFB4E]/30 to-transparent p-[2px]">
                     <div className="w-full h-full rounded-full bg-[#10151280] border border-white/10 flex items-center justify-center">
-                      <span className="font-['Fraunces',serif] text-xl font-semibold text-[#F3F4EF]">
+                      <span className="text-xl font-semibold text-[#F3F4EF]">
                         MY
                       </span>
                     </div>
@@ -302,7 +292,7 @@ export default function About() {
           {activeTab === "skills" && (
             <div className="space-y-14">
               <div>
-                <h3 className="font-['Fraunces',serif] text-2xl md:text-3xl font-semibold text-[#F3F4EF] mb-8 text-center">
+                <h3 className="text-2xl md:text-3xl font-semibold text-[#F3F4EF] mb-8 text-center">
                   Technical Expertise
                 </h3>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -337,7 +327,7 @@ export default function About() {
               </div>
 
               <div>
-                <h3 className="font-['Fraunces',serif] text-2xl md:text-3xl font-semibold text-[#F3F4EF] mb-8 text-center">
+                <h3 className="text-2xl md:text-3xl font-semibold text-[#F3F4EF] mb-8 text-center">
                   Soft Skills &amp; Strengths
                 </h3>
                 <div className="grid md:grid-cols-2 gap-5">

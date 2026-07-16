@@ -15,14 +15,6 @@ import {
   FaTimes,
 } from "react-icons/fa";
 
-// -----------------------------------------------------------------------------
-// Same token system as the rest of the site:
-//   bg base #0A0F0D · glass rgba(255,255,255,.03) · border rgba(255,255,255,.1)
-//   accent lime #CDFB4E · text primary #F3F4EF · text muted #8B9691
-// Success state reuses the lime accent; error state uses a muted coral
-// (#F2836B) so it stays legible on dark without turning alarmist-bright red.
-// -----------------------------------------------------------------------------
-
 export default function Contact() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -129,7 +121,7 @@ export default function Contact() {
           <p className="text-[11px] uppercase tracking-[0.3em] text-[#CDFB4E] mb-3">
             Get In Touch
           </p>
-          <h2 className="font-['Fraunces',serif] text-4xl md:text-5xl font-semibold text-[#F3F4EF] mb-4">
+          <h2 className="text-4xl md:text-5xl font-semibold text-[#F3F4EF] mb-4">
             Let's build something
           </h2>
           <p className="text-[#8B9691] max-w-xl mx-auto">
@@ -214,7 +206,7 @@ export default function Contact() {
             className="rounded-3xl p-8 bg-white/[0.03] border border-white/10"
           >
             <div className="mb-6">
-              <h3 className="font-['Fraunces',serif] text-2xl font-semibold text-[#F3F4EF] mb-1.5">
+              <h3 className="text-2xl font-semibold text-[#F3F4EF] mb-1.5">
                 Send a message
               </h3>
               <p className="text-[#8B9691] text-sm">
@@ -351,7 +343,7 @@ export default function Contact() {
             <div className="absolute inset-0 pointer-events-none">
               <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[300px] h-[150px] rounded-full bg-[#CDFB4E]/10 blur-[80px]" />
             </div>
-            <h3 className="relative font-['Fraunces',serif] text-2xl md:text-3xl font-semibold text-[#F3F4EF] mb-3">
+            <h3 className="relative text-2xl md:text-3xl font-semibold text-[#F3F4EF] mb-3">
               Ready to build something amazing?
             </h3>
             <p className="relative text-[#8B9691] mb-7 max-w-xl mx-auto">

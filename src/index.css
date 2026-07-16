@@ -1,5 +1,19 @@
 @import "tailwindcss";
-html, body {
-    overflow-x: hidden;
+
+@theme {
+  --font-archivo: 'Archivo', sans-serif;
+  --font-work-sans: 'Work Sans', sans-serif;
+}
+
+@layer base {
+  * {
+    @apply font-work-sans;
+  }
+  h1, h2, h3, h4, h5, h6, .font-display {
+    @apply font-archivo;
+  }
+  html, body {
+    @apply font-work-sans overflow-x-hidden;
     max-width: 100vw;
+  }
 }

@@ -11,16 +11,8 @@ import {
   FaGitAlt,
 } from "react-icons/fa";
 import { SiJavascript, SiTailwindcss, SiFirebase } from "react-icons/si";
-import cvFile from "./My-cv/My-Resume.pdf";
+import cvFile from "./My-cv/Muhammad-Yahya.pdf";
 
-// -----------------------------------------------------------------------------
-// Same token system as Navbar.jsx — bg #0A0F0D, accent #CDFB4E, text #F3F4EF /
-// #8B9691. Display headline uses a serif face (Fraunces / Playfair Display);
-// add it via Google Fonts in index.html, e.g.:
-//   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
-// then reference it below as font-['Fraunces'] (already wired in, swap the
-// family name if you pick a different serif).
-// -----------------------------------------------------------------------------
 
 function Sparkle({ className, delay = 0, size = 18 }) {
   return (
@@ -83,7 +75,7 @@ export default function Hero() {
           100% { transform: translateX(-50%); }
         }
         .tech-marquee-track {
-          animation: techMarquee 22s linear infinite;
+          animation: techMarquee 40s linear infinite;
         }
         .tech-marquee-wrap:hover .tech-marquee-track {
           animation-play-state: paused;
@@ -109,6 +101,8 @@ export default function Hero() {
       <Sparkle className="absolute top-[28%] right-[12%]" delay={1.2} size={14} />
       <Sparkle className="absolute bottom-[22%] left-[16%]" delay={0.6} size={12} />
       <Sparkle className="absolute bottom-[30%] right-[8%]" delay={1.8} size={20} />
+      <Sparkle className="absolute bottom-[40%] right-[30%]" delay={2} size={12} />
+      <Sparkle className="absolute top-[30%] left-[30%]" delay={2.2} size={14} />
 
       {/* Main content */}
       <div className="relative z-10 flex flex-col items-center text-center max-w-3xl w-full">
@@ -121,7 +115,7 @@ export default function Hero() {
         >
           <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#CDFB4E]/30 to-transparent p-[2px]">
             <div className="w-full h-full rounded-full bg-[#10151280] backdrop-blur-sm border border-white/10 flex items-center justify-center">
-              <span className="font-['Fraunces',serif] text-2xl font-semibold text-[#F3F4EF]">
+              <span className="text-2xl font-semibold text-[#F3F4EF]">
                 MY
               </span>
             </div>
@@ -150,7 +144,7 @@ export default function Hero() {
           animate="visible"
           variants={fadeUp}
           custom={1}
-          className="w-full font-['Fraunces',serif] text-4xl md:text-6xl font-semibold text-[#F3F4EF] leading-[1.1] mb-6"
+          className="w-full text-4xl md:text-6xl font-semibold text-[#F3F4EF] leading-[1.1] mb-6"
         >
           Welcome to my
           <br />

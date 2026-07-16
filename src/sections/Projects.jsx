@@ -189,7 +189,7 @@ export default function Projects() {
           <p className="text-[11px] uppercase tracking-[0.3em] text-[#CDFB4E] mb-3">
             Curated Work
           </p>
-          <h2 className="font-['Fraunces',serif] text-4xl md:text-5xl font-semibold text-[#F3F4EF] mb-4">
+          <h2 className="text-4xl md:text-5xl font-semibold text-[#F3F4EF] mb-4">
             Featured Projects
           </h2>
           <p className="text-[#8B9691] max-w-xl mx-auto">
@@ -246,7 +246,7 @@ export default function Projects() {
                     </span>
                   </div>
 
-                  <h3 className="font-['Fraunces',serif] text-xl font-semibold text-[#F3F4EF] mb-2">
+                  <h3 className="text-xl font-semibold text-[#F3F4EF] mb-2">
                     {project.title}
                   </h3>
 

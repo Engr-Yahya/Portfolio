@@ -3,11 +3,6 @@ import { motion, useInView } from "framer-motion";
 import { FaBriefcase, FaGraduationCap, FaMapMarkerAlt, FaCalendarAlt, FaTrophy, FaCode, FaUsers, FaBug } from "react-icons/fa";
 import { SiReact, SiTailwindcss, SiMui, SiJira } from "react-icons/si";
 
-// -----------------------------------------------------------------------------
-// Same token system as Navbar / Hero / About / Projects:
-//   bg base #0A0F0D · glass rgba(255,255,255,.03) · border rgba(255,255,255,.1)
-//   accent lime #CDFB4E · text primary #F3F4EF · text muted #8B9691
-// -----------------------------------------------------------------------------
 
 export default function Experience() {
   const ref = useRef(null);
@@ -135,7 +130,7 @@ export default function Experience() {
           <p className="text-[11px] uppercase tracking-[0.3em] text-[#CDFB4E] mb-3">
             My Journey
           </p>
-          <h2 className="font-['Fraunces',serif] text-4xl md:text-5xl font-semibold text-[#F3F4EF] mb-4">
+          <h2 className="text-4xl md:text-5xl font-semibold text-[#F3F4EF] mb-4">
             Experience &amp; Education
           </h2>
           <p className="text-[#8B9691] max-w-xl mx-auto">
@@ -203,7 +198,7 @@ export default function Experience() {
 
                 <div className="space-y-6">
                   <div className="space-y-2">
-                    <h3 className="font-['Fraunces',serif] text-2xl font-semibold text-[#F3F4EF]">
+                    <h3 className="text-2xl font-semibold text-[#F3F4EF]">
                       {exp.title}
                     </h3>
                     <div className="flex items-center gap-4 text-[#8B9691] text-sm flex-wrap">
@@ -286,7 +281,7 @@ export default function Experience() {
 
                 <div className="space-y-6">
                   <div className="space-y-2">
-                    <h3 className="font-['Fraunces',serif] text-2xl font-semibold text-[#F3F4EF]">
+                    <h3 className="text-2xl font-semibold text-[#F3F4EF]">
                       {edu.title}
                     </h3>
                     <div className="flex items-center gap-4 text-[#8B9691] text-sm flex-wrap">
