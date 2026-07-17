@@ -20,4 +20,12 @@
 textarea::placeholder,
 input::placeholder {
   font-size: 14px;
+} 
+@media (max-width: 767px) { 
+  section[id] { 
+    padding-top: 40px; 
+    padding-bottom: 40px; 
+    padding-left: 12px; 
+    padding-right: 12px; 
+  } 
 }

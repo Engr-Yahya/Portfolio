@@ -18,6 +18,9 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const [navbarVisible, setNavbarVisible] = useState(true);
+  const prevScrollY = useRef(0);
+  const navbarVisibleRef = useRef(true);
 
   // The scroll listener recalculates the "current" section on every scroll
   // tick. Without a lock, clicking a nav item and smooth-scrolling past
@@ -41,6 +44,17 @@ export default function Navbar() {
   // Active-section detection on scroll
   useEffect(() => {
     const handleScroll = () => {
+      const currentY = window.scrollY || window.pageYOffset;
+      const isScrollingDown = currentY > prevScrollY.current;
+      const shouldShowNavbar = isScrollingDown || currentY <= 10;
+
+      if (shouldShowNavbar !== navbarVisibleRef.current) {
+        navbarVisibleRef.current = shouldShowNavbar;
+        setNavbarVisible(shouldShowNavbar);
+      }
+
+      prevScrollY.current = currentY;
+
       if (isProgrammaticScroll.current) {
         // Still mid-flight from a nav click — keep pushing the unlock
         // window forward until scroll events actually stop.
@@ -106,7 +120,7 @@ export default function Navbar() {
       {/* Desktop floating pill */}
       <motion.nav
         initial={{ y: -60, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        animate={navbarVisible ? { y: 0, opacity: 1 } : { y: -60, opacity: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
         className="fixed top-5 left-1/2 -translate-x-1/2 z-50 hidden md:block"
       >
@@ -138,10 +152,22 @@ export default function Navbar() {
         </ul>
       </motion.nav>
 
+      {/* Mobile header name */}
+      <motion.div
+        initial={{ y: -60, opacity: 0 }}
+        animate={navbarVisible ? { y: 0, opacity: 1 } : { y: -60, opacity: 0 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        className="fixed top-5 left-5 z-50 md:hidden"
+      >
+        <a href="#home" className="inline-flex items-center rounded-full border border-white/10 bg-[#0D1310]/80 px-3 py-2 text-sm font-semibold text-[#F3F4EF] backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.45)]">
+          Muhammad Yahya
+        </a>
+      </motion.div>
+
       {/* Mobile trigger */}
       <motion.div
         initial={{ y: -60, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        animate={navbarVisible ? { y: 0, opacity: 1 } : { y: -60, opacity: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
         className="fixed top-5 right-5 z-50 md:hidden"
       >

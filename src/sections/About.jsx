@@ -204,7 +204,7 @@ export default function About() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`relative flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-colors duration-300 ${
+                  className={`relative flex items-center gap-1 px-5 py-2.5 rounded-full text-sm font-medium transition-colors duration-300 ${
                     isActive ? "text-[#0A0F0D]" : "text-[#B9C2BC] hover:text-white"
                   }`}
                 >

@@ -101,8 +101,6 @@ export default function Hero() {
       <Sparkle className="absolute top-[28%] right-[12%]" delay={1.2} size={14} />
       <Sparkle className="absolute bottom-[22%] left-[16%]" delay={0.6} size={12} />
       <Sparkle className="absolute bottom-[30%] right-[8%]" delay={1.8} size={20} />
-      <Sparkle className="absolute bottom-[40%] right-[30%]" delay={2} size={12} />
-      <Sparkle className="absolute top-[30%] left-[30%]" delay={2.2} size={14} />
 
       {/* Main content */}
       <div className="relative z-10 flex flex-col items-center text-center max-w-3xl w-full">
