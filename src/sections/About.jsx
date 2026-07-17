@@ -1,6 +1,67 @@
 import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
-import { FaGraduationCap, FaBriefcase, FaCode, FaHeart, FaAward, FaUsers, FaLightbulb, FaClock } from "react-icons/fa";
+import { useRef, useState, useEffect } from "react";
+import {
+  FaGraduationCap,
+  FaBriefcase,
+  FaCode,
+  FaHeart,
+  FaAward,
+  FaUsers,
+  FaLightbulb,
+  FaClock,
+  FaRocket,
+  FaBolt,
+  FaMapMarkerAlt,
+  FaBullseye,
+  FaLaptopCode,
+} from "react-icons/fa";
+
+// Animated counter — counts up from 0 to the numeric portion of `value`
+// once `isInView` becomes true, preserving any prefix/suffix (e.g. "+", "%").
+function Counter({ value, isInView, duration = 1.5, delay = 0 }) {
+  const [display, setDisplay] = useState(value.replace(/[0-9]/g, (d) => "0"));
+
+  const numericMatch = value.match(/[0-9]+/);
+  const numericValue = numericMatch ? parseInt(numericMatch[0], 10) : null;
+  const prefix = numericMatch ? value.slice(0, numericMatch.index) : "";
+  const suffix = numericMatch
+    ? value.slice(numericMatch.index + numericMatch[0].length)
+    : "";
+
+  useEffect(() => {
+    if (!isInView || numericValue === null) {
+      if (numericValue === null) setDisplay(value);
+      return;
+    }
+
+    let animationFrame;
+    let startTime;
+    const startDelay = setTimeout(() => {
+      const animate = (timestamp) => {
+        if (!startTime) startTime = timestamp;
+        const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
+        const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+        const current = Math.floor(eased * numericValue);
+        setDisplay(`${prefix}${current}${suffix}`);
+
+        if (progress < 1) {
+          animationFrame = requestAnimationFrame(animate);
+        } else {
+          setDisplay(`${prefix}${numericValue}${suffix}`);
+        }
+      };
+      animationFrame = requestAnimationFrame(animate);
+    }, delay * 1000);
+
+    return () => {
+      clearTimeout(startDelay);
+      cancelAnimationFrame(animationFrame);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isInView]);
+
+  return <>{display}</>;
+}
 
 export default function About() {
   const ref = useRef(null);
@@ -55,10 +116,10 @@ export default function About() {
   ];
 
   const stats = [
-    { number: "3+", label: "Years Learning", icon: "📚" },
-    { number: "3+", label: "Projects Built", icon: "🚀" },
-    { number: "8+", label: "Technologies", icon: "⚡" },
-    { number: "100%", label: "Passion", icon: "❤️" },
+    { number: "2025", label: "Graduations", icon: FaGraduationCap },
+    { number: "6+", label: "Projects Built", icon: FaRocket },
+    { number: "8+", label: "Technologies", icon: FaBolt },
+    { number: "100%", label: "Passion", icon: FaHeart },
   ];
 
   const tabs = [
@@ -113,9 +174,16 @@ export default function About() {
               }}
               className="rounded-2xl p-6 text-center bg-white/[0.03] border border-white/10 hover:border-[#CDFB4E]/35 backdrop-blur-sm transition-colors duration-300 ease-out"
             >
-              <div className="text-2xl mb-2">{stat.icon}</div>
+              <div className="w-10 h-10 rounded-full mx-auto mb-3 flex items-center justify-center bg-[#CDFB4E]/10">
+                <stat.icon className="text-[#CDFB4E]" size={18} />
+              </div>
               <div className="text-2xl md:text-3xl font-semibold text-[#CDFB4E] mb-1">
-                {stat.number}
+                <Counter
+                  value={stat.number}
+                  isInView={isInView}
+                  duration={1.5}
+                  delay={index * 0.1}
+                />
               </div>
               <div className="text-sm text-[#8B9691]">{stat.label}</div>
             </motion.div>
@@ -169,7 +237,7 @@ export default function About() {
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="space-y-5">
                 <h3 className="text-2xl md:text-3xl font-semibold text-[#F3F4EF]">
-                  Hello, I'm Muhammad Yahya 👋
+                  Hello, I'm Muhammad Yahya
                 </h3>
                 <div className="space-y-4 text-[#8B9691] leading-relaxed">
                   <p>
@@ -193,10 +261,10 @@ export default function About() {
 
                 <div className="flex gap-6 pt-2">
                   <div className="flex items-center gap-2 text-[#CDFB4E] text-sm font-medium">
-                    <span>🎯</span> Goal-Oriented
+                    <FaBullseye size={14} /> Goal-Oriented
                   </div>
                   <div className="flex items-center gap-2 text-[#CDFB4E] text-sm font-medium">
-                    <span>🚀</span> Innovation-Driven
+                    <FaRocket size={14} /> Innovation-Driven
                   </div>
                 </div>
               </div>
@@ -207,7 +275,7 @@ export default function About() {
                 transition={{ duration: 0.7, delay: 0.15 }}
                 className="relative rounded-3xl p-8 bg-white/[0.03] border border-white/10 backdrop-blur-sm"
               >
-                <div className="absolute top-5 right-5 text-5xl opacity-10">💻</div>
+                <FaLaptopCode className="absolute top-5 right-5 text-[#F3F4EF] opacity-10" size={48} />
                 <div className="text-center">
                   <div className="w-20 h-20 rounded-full mx-auto mb-4 bg-gradient-to-br from-[#CDFB4E]/30 to-transparent p-[2px]">
                     <div className="w-full h-full rounded-full bg-[#10151280] border border-white/10 flex items-center justify-center">
@@ -222,10 +290,10 @@ export default function About() {
                   <p className="text-[#8B9691] mb-5 text-sm">Front-End Developer</p>
                   <div className="space-y-2 text-sm text-[#B9C2BC]">
                     <div className="flex items-center justify-center gap-2">
-                      <span>📍</span> Islamabad, Pakistan
+                      <FaMapMarkerAlt size={13} /> Islamabad, Pakistan
                     </div>
                     <div className="flex items-center justify-center gap-2">
-                      <span>🎓</span> BS Software Engineering
+                      <FaGraduationCap size={13} /> BS Software Engineering
                     </div>
                   </div>
                 </div>

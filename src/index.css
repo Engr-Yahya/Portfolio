@@ -17,3 +17,7 @@
     max-width: 100vw;
   }
 }
+textarea::placeholder,
+input::placeholder {
+  font-size: 14px;
+}

@@ -85,7 +85,7 @@
 - **Skills Showcase** - Technical and soft skills with progress bars
 
 ### **💼 Experience Section**
-- **Professional Journey** - Current internship at Saqib Hanif
+- **Professional Journey** - Current internship at NovaXccelerate
 - **Educational Background** - BS Software Engineering at Hazara University
 - **Technology Stack** - React, TailwindCSS, Material UI, Jira
 - **Key Achievements** - Highlighted accomplishments and contributions

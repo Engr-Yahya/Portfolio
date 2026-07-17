@@ -44,7 +44,7 @@ export default function Experience() {
     },
     {
       title: "Web Developer (Intern)",
-      company: "Saqib Hanif",
+      company: "NovaXccelerate",
       location: "Mansehra, Pakistan",
       from: "05/2025",
       to: "07/2025",
